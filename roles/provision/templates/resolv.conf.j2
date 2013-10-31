@@ -1,0 +1,4 @@
+search {{node.network.dns.search}}
+{% for host in node.network.dns.hosts %}
+nameserver {{ host }}
+{% endfor %}

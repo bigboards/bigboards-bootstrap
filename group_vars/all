@@ -1,0 +1,22 @@
+---
+# Variables applicable to all hosts
+
+node:
+  hostname: 'bb1'
+  network:
+    mode: 'dhcp'
+    address: '192.168.1.241'
+    netmask: '255.255.255.0'
+    broadcast: '255.255.255.255'
+    gateway: '192.168.1.1'
+    dns:
+      search: haeger.biz
+      hosts:
+        - 192.168.1.1
+        - 8.8.8.8
+
+disk: '/dev/sdg'
+rootfs:
+  url: 'https://rcn-ee.net/deb/minfs/raring/ubuntu-13.04-minimal-armhf-2013-08-25.tar.xz'
+kernel:
+  version: '3.11.4-armv7-x14'

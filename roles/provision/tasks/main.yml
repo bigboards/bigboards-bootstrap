@@ -1,0 +1,126 @@
+---
+# Tasks for installing and configuring AWX application.
+- name: Download the rootfs
+  get_url: url={{rootfs.url}} dest=/tmp/rootfs.txz
+
+- name: Unpack the downloaded rootfs
+  shell: creates=/tmp/ubuntu-13.04-minimal-armhf-2013-08-25 tar -xJf /tmp/rootfs.txz -C /tmp/
+
+- name: UnMount the Boot partition
+  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=unmounted
+
+- name: UnMount the Root partition
+  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=unmounted
+
+- name: Blank the target disk
+  shell: dd if=/dev/zero of=$disk bs=1M count=16
+
+- name: Copy files to the local filesystem
+  copy: src={{item}} dest=/tmp/
+  with_items:
+    - u-boot.imx
+    - partitioning.cfg
+    - '{{kernel.version}}-dtbs.tar.gz'
+    - '{{kernel.version}}-modules.tar.gz'
+
+- name: Install the bootloader
+  shell: dd if=/tmp/u-boot.imx of=$disk bs=512 seek=2
+
+- name: Partition the disk 
+  shell: sfdisk --force $disk < /tmp/partitioning.cfg
+
+- name: Create the filesystem for the boot partition
+  filesystem: fstype=ext2 dev={{disk}}1 opts="-L boot"
+
+- name: Create the filesystem for the root partition
+  filesystem: fstype=ext4 dev={{disk}}2 opts="-L rootfs"
+
+- name: Create the temporary directories
+  file: path=$item state=directory
+  with_items:
+    - /media/boot/
+    - /media/rootfs/
+
+- name: Mount the Boot partition
+  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=mounted
+  tags: 
+    - config
+
+- name: Mount the Root partition
+  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=mounted
+  tags: 
+    - config
+
+- name: Configure UBoot
+  template: src=uEnv.txt.j2 dest=/media/boot/ force=yes
+
+- name: Unpack the rootfs
+  shell: tar xfvp /tmp/ubuntu-13.04-minimal-armhf-2013-08-25/arm*-rootfs-*.tar -C /media/rootfs/
+
+- name: Copy the kernel
+  copy: src={{kernel.version}}.zImage dest=/media/boot/zImage
+
+- name: Create the DTBS directory
+  file: state=directory path=/media/boot/dtbs
+
+- name: Extract the DTBS
+  shell: tar xvf /tmp/{{kernel.version}}-dtbs.tar.gz -C /media/boot/dtbs/
+
+- name: Extract the modules
+  shell: tar xvf /tmp/{{kernel.version}}-modules.tar.gz -C /media/rootfs
+
+# -- Configuation Files START
+
+- name: Copy fstab
+  template: src=fstab.j2 dest=/media/rootfs/etc/fstab owner=root group=root
+  tags: 
+    - config
+
+- name: Copy network configuration
+  template: src=interfaces-{{node.network.mode}}.j2 dest=/media/rootfs/etc/network/interfaces owner=root group=root
+  tags: 
+    - config
+
+- name: Copy hostname configuration
+  template: src=hostname.j2 dest=/media/rootfs/etc/hostname owner=root group=root
+  tags: 
+    - config
+
+- name: Copy DNS configuration
+  template: src=resolv.conf.j2 dest=/media/rootfs/etc/resolv.conf owner=root group=root
+  tags: 
+    - config
+
+- name: Copy serial configuration
+  template: src=serial.conf.j2 dest=/media/rootfs/etc/init/serial.conf owner=root group=root
+  tags: 
+    - config
+
+- name: Copy the SELinux config
+  copy: src=selinux dest=/media/rootfs/etc/selinux/config owner=root group=root
+  tags: 
+    - config
+
+- name: Create the root SSH folder
+  file: path=/media/rootfs/root/.ssh state=directory
+  tags: 
+    - config
+
+- name: Copy the authorized key to the root user
+  copy: src=authorized_keys dest=/media/rootfs/root/.ssh/authorized_keys owner=root group=root mode=0600
+  tags: 
+    - config
+
+# -- Configuation Files END
+
+- name: Mount the Boot partition
+  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=unmounted
+  tags: 
+    - config
+
+- name: Mount the Root partition
+  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=unmounted
+  tags: 
+    - config
+
+

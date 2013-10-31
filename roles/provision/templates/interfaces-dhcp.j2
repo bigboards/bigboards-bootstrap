@@ -1,0 +1,8 @@
+auto lo
+iface lo inet loopback
+
+auto br0
+iface br0 inet {{node.network.mode}}
+    bridge_ports eth0
+    bridge_fd 0
+    bridge_maxwait 0
