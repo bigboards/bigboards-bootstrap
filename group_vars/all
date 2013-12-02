@@ -2,10 +2,10 @@
 # Variables applicable to all hosts
 
 node:
-  hostname: 'bb1'
+  hostname: 'bb6'
   network:
-    mode: 'dhcp'
-    address: '192.168.1.241'
+    mode: 'static'
+    address: '192.168.1.246'
     netmask: '255.255.255.0'
     broadcast: '255.255.255.255'
     gateway: '192.168.1.1'
@@ -16,7 +16,14 @@ node:
         - 8.8.8.8
 
 disk: '/dev/sdg'
+
+bigboards:
+  mode: 'node'
+  url: 'https://dl.dropboxusercontent.com/u/25238672/bb-node.tgz'
+
 rootfs:
-  url: 'https://rcn-ee.net/deb/minfs/raring/ubuntu-13.04-minimal-armhf-2013-08-25.tar.xz'
+  #url: 'https://rcn-ee.net/deb/minfs/raring/ubuntu-13.04-minimal-armhf-2013-08-25.tar.xz'
+  #url: 'https://dl.dropboxusercontent.com/u/25238672/rootfs.tgz'
+  url: 'http://192.168.1.111/bb/rootfs.tgz'
 kernel:
   version: '3.11.4-armv7-x14'

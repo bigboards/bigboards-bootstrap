@@ -1,19 +1,22 @@
 ---
 # Tasks for installing and configuring AWX application.
 - name: Download the rootfs
-  get_url: url={{rootfs.url}} dest=/tmp/rootfs.txz
-
-- name: Unpack the downloaded rootfs
-  shell: creates=/tmp/ubuntu-13.04-minimal-armhf-2013-08-25 tar -xJf /tmp/rootfs.txz -C /tmp/
+  get_url: url={{rootfs.url}} dest=/tmp/rootfs.tgz force=yes
 
 - name: UnMount the Boot partition
   mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=unmounted
+  tags:
+    - format
 
 - name: UnMount the Root partition
   mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=unmounted
+  tags:
+    - format
 
 - name: Blank the target disk
   shell: dd if=/dev/zero of=$disk bs=1M count=16
+  tags:
+    - format
 
 - name: Copy files to the local filesystem
   copy: src={{item}} dest=/tmp/
@@ -25,15 +28,23 @@
 
 - name: Install the bootloader
   shell: dd if=/tmp/u-boot.imx of=$disk bs=512 seek=2
+  tags:
+    - format
 
 - name: Partition the disk 
   shell: sfdisk --force $disk < /tmp/partitioning.cfg
+  tags:
+    - format
 
 - name: Create the filesystem for the boot partition
-  filesystem: fstype=ext2 dev={{disk}}1 opts="-L boot"
+  shell: mkfs.ext2 -L boot {{disk}}1
+  tags:
+    - format
 
 - name: Create the filesystem for the root partition
-  filesystem: fstype=ext4 dev={{disk}}2 opts="-L rootfs"
+  shell: mkfs.ext4 -L rootfs {{disk}}2
+  tags:
+    - format
 
 - name: Create the temporary directories
   file: path=$item state=directory
@@ -51,11 +62,17 @@
   tags: 
     - config
 
+- name: Make sure the rootfs is empty
+  shell: rm -rf /media/rootfs/*
+
 - name: Configure UBoot
   template: src=uEnv.txt.j2 dest=/media/boot/ force=yes
 
-- name: Unpack the rootfs
-  shell: tar xfvp /tmp/ubuntu-13.04-minimal-armhf-2013-08-25/arm*-rootfs-*.tar -C /media/rootfs/
+- name: Unpack the downloaded rootfs
+  shell: creates=/tmp/rootfs tar -xzpf /tmp/rootfs.tgz -C /media/rootfs
+
+#- name: Unpack the rootfs
+#  shell: tar xfvp /tmp/ubuntu-13.04-minimal-armhf-2013-08-25/arm*-rootfs-*.tar -C /media/rootfs/
 
 - name: Copy the kernel
   copy: src={{kernel.version}}.zImage dest=/media/boot/zImage
@@ -70,6 +87,10 @@
   shell: tar xvf /tmp/{{kernel.version}}-modules.tar.gz -C /media/rootfs
 
 # -- Configuation Files START
+- name: Copy the UDev Rules
+  copy: src=70-persistent-net.rules dest=/media/rootfs/etc/udev/rules.d/70-persistent-net.rules owner=root group=root
+  tags: 
+    - config
 
 - name: Copy fstab
   template: src=fstab.j2 dest=/media/rootfs/etc/fstab owner=root group=root
@@ -96,6 +117,11 @@
   tags: 
     - config
 
+- name: Copy hosts file
+  template: src=hosts.j2 dest=/media/rootfs/etc/hosts owner=root group=root
+  tags: 
+    - config
+
 - name: Copy the SELinux config
   copy: src=selinux dest=/media/rootfs/etc/selinux/config owner=root group=root
   tags: 
@@ -112,13 +138,30 @@
     - config
 
 # -- Configuation Files END
+# -- BigBoards START
 
-- name: Mount the Boot partition
+- name: Create the BB directory structure
+  file: path=$item state=directory
+  with_items:
+    - /media/rootfs/opt/bb
+
+- name: Download the bb-node release
+  get_url: url={{bigboards.url}} dest=/tmp/bb-node.tgz
+
+- name: Unpack the downloaded bb-node release
+  shell: tar -xzf /tmp/bb-node.tgz -C /media/rootfs/opt/bb
+
+- name: Install the init script
+  copy: src=bb-node.sh dest=/media/rootfs/etc/init.d/bb-node mode=766
+
+# -- BigBoards END
+
+- name: Unmount the Boot partition
   mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=unmounted
   tags: 
     - config
 
-- name: Mount the Root partition
+- name: Unmount the Root partition
   mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=unmounted
   tags: 
     - config
