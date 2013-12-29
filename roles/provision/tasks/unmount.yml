@@ -1,0 +1,9 @@
+- name: UnMount the Boot partition
+  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=unmounted
+  tags:
+    - disk
+
+- name: UnMount the Root partition
+  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=unmounted
+  tags:
+    - disk
