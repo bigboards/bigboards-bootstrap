@@ -2,15 +2,15 @@
 # Variables applicable to all hosts
 
 node:
-  hostname: 'bb6'
+  hostname: 'bb2'
   network:
     mode: 'static'
-    address: '192.168.1.246'
-    netmask: '255.255.255.0'
-    broadcast: '255.255.255.255'
-    gateway: '192.168.1.1'
+    address: '172.20.40.2'
+    netmask: '255.255.255.240'
+    broadcast: '172.20.40.15'
+    gateway: '172.20.40.1'
     dns:
-      search: haeger.biz
+      search: alice
       hosts:
         - 192.168.1.1
         - 8.8.8.8
