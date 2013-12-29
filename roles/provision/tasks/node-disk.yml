@@ -1,0 +1,4 @@
+- name: Copy fstab
+  template: src=fstab.j2 dest=/media/rootfs/etc/fstab owner=root group=root
+  tags: 
+    - config

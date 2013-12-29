@@ -1,12 +1,11 @@
 auto lo
 iface lo inet loopback
 
-auto br0
-iface br0 inet {{node.network.mode}}
+auto eth0
+iface eth0 inet {{node.network.mode}}
     address {{node.network.address}}
     netmask {{node.network.netmask}}
     broadcast {{node.network.broadcast}}
-    gateway {{node.network.gateway}}
-    bridge_ports eth0
-    bridge_fd 0
-    bridge_maxwait 0
+
+auto eth0:0
+iface eth0:0 inet dhcp

@@ -2,6 +2,7 @@
 # Variables applicable to all hosts
 
 node:
+  type: 'master'
   hostname: 'bb2'
   network:
     mode: 'static'

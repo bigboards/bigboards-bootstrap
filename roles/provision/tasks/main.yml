@@ -1,169 +1,37 @@
 ---
-# Tasks for installing and configuring AWX application.
-- name: Download the rootfs
-  get_url: url={{rootfs.url}} dest=/tmp/rootfs.tgz force=yes
+- include: prepare.yml
 
-- name: UnMount the Boot partition
-  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=unmounted
-  tags:
-    - format
-
-- name: UnMount the Root partition
-  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=unmounted
-  tags:
-    - format
-
-- name: Blank the target disk
-  shell: dd if=/dev/zero of=$disk bs=1M count=16
-  tags:
-    - format
-
-- name: Copy files to the local filesystem
-  copy: src={{item}} dest=/tmp/
-  with_items:
-    - u-boot.imx
-    - partitioning.cfg
-    - '{{kernel.version}}-dtbs.tar.gz'
-    - '{{kernel.version}}-modules.tar.gz'
-
-- name: Install the bootloader
-  shell: dd if=/tmp/u-boot.imx of=$disk bs=512 seek=2
-  tags:
-    - format
-
-- name: Partition the disk 
-  shell: sfdisk --force $disk < /tmp/partitioning.cfg
-  tags:
-    - format
-
-- name: Create the filesystem for the boot partition
-  shell: mkfs.ext2 -L boot {{disk}}1
-  tags:
-    - format
-
-- name: Create the filesystem for the root partition
-  shell: mkfs.ext4 -L rootfs {{disk}}2
-  tags:
-    - format
-
-- name: Create the temporary directories
-  file: path=$item state=directory
-  with_items:
-    - /media/boot/
-    - /media/rootfs/
-
-- name: Mount the Boot partition
-  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=mounted
-  tags: 
-    - config
-
-- name: Mount the Root partition
-  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=mounted
-  tags: 
-    - config
-
-- name: Make sure the rootfs is empty
-  shell: rm -rf /media/rootfs/*
-
-- name: Configure UBoot
-  template: src=uEnv.txt.j2 dest=/media/boot/ force=yes
-
-- name: Unpack the downloaded rootfs
-  shell: creates=/tmp/rootfs tar -xzpf /tmp/rootfs.tgz -C /media/rootfs
-
-#- name: Unpack the rootfs
-#  shell: tar xfvp /tmp/ubuntu-13.04-minimal-armhf-2013-08-25/arm*-rootfs-*.tar -C /media/rootfs/
-
-- name: Copy the kernel
-  copy: src={{kernel.version}}.zImage dest=/media/boot/zImage
-
-- name: Create the DTBS directory
-  file: state=directory path=/media/boot/dtbs
-
-- name: Extract the DTBS
-  shell: tar xvf /tmp/{{kernel.version}}-dtbs.tar.gz -C /media/boot/dtbs/
-
-- name: Extract the modules
-  shell: tar xvf /tmp/{{kernel.version}}-modules.tar.gz -C /media/rootfs
-
-# -- Configuation Files START
-- name: Copy the UDev Rules
-  copy: src=70-persistent-net.rules dest=/media/rootfs/etc/udev/rules.d/70-persistent-net.rules owner=root group=root
-  tags: 
-    - config
-
-- name: Copy fstab
-  template: src=fstab.j2 dest=/media/rootfs/etc/fstab owner=root group=root
-  tags: 
-    - config
-
-- name: Copy network configuration
-  template: src=interfaces-{{node.network.mode}}.j2 dest=/media/rootfs/etc/network/interfaces owner=root group=root
-  tags: 
-    - config
-
-- name: Copy hostname configuration
-  template: src=hostname.j2 dest=/media/rootfs/etc/hostname owner=root group=root
-  tags: 
-    - config
-
-- name: Copy DNS configuration
-  template: src=resolv.conf.j2 dest=/media/rootfs/etc/resolv.conf owner=root group=root
-  tags: 
-    - config
-
-- name: Copy serial configuration
-  template: src=serial.conf.j2 dest=/media/rootfs/etc/init/serial.conf owner=root group=root
-  tags: 
-    - config
-
-- name: Copy hosts file
-  template: src=hosts.j2 dest=/media/rootfs/etc/hosts owner=root group=root
-  tags: 
-    - config
-
-- name: Copy the SELinux config
-  copy: src=selinux dest=/media/rootfs/etc/selinux/config owner=root group=root
-  tags: 
-    - config
-
-- name: Create the root SSH folder
-  file: path=/media/rootfs/root/.ssh state=directory
-  tags: 
-    - config
-
-- name: Copy the authorized key to the root user
-  copy: src=authorized_keys dest=/media/rootfs/root/.ssh/authorized_keys owner=root group=root mode=0600
-  tags: 
-    - config
-
-# -- Configuation Files END
-# -- BigBoards START
-
-- name: Create the BB directory structure
-  file: path=$item state=directory
-  with_items:
-    - /media/rootfs/opt/bb
-
-- name: Download the bb-node release
-  get_url: url={{bigboards.url}} dest=/tmp/bb-node.tgz
-
-- name: Unpack the downloaded bb-node release
-  shell: tar -xzf /tmp/bb-node.tgz -C /media/rootfs/opt/bb
-
-- name: Install the init script
-  copy: src=bb-node.sh dest=/media/rootfs/etc/init.d/bb-node mode=766
-
-# -- BigBoards END
-
-- name: Unmount the Boot partition
-  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=unmounted
-  tags: 
-    - config
-
-- name: Unmount the Root partition
-  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=unmounted
-  tags: 
-    - config
+# -- Unmount existing partitions, recreate the partition table, install the bootloader and mount the new partitions again
+- include: unmount.yml
+- include: partition.yml
+- include: mount.yml
 
 
+# -- create the root filesystem and install the kernel
+- include: node-fs.yml
+- include: node-kernel.yml
+
+# -- configure the bootloader
+- include: node-bootloader.yml
+
+# -- configure the serial port
+- include: node-serial.yml
+
+# -- configure the network
+- include: node-network-general.yml
+- include: node-network-{{node.type}}.yml
+
+# -- configure the security
+- include: node-security.yml
+
+# -- create the users
+- include: node-users.yml
+
+# -- add the node disk
+- include: node-disk.yml
+
+# -- add the bigboards configuration
+- include: node-bigboards.yml
+
+# -- Unmount the SD-Card
+- include: unmount.yml

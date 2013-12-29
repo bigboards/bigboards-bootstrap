@@ -1,0 +1,9 @@
+- name: Mount the Boot partition
+  mount: name=/media/boot/ fstype=ext2 src={{disk}}1 state=mounted
+  tags: 
+    - disk
+
+- name: Mount the Root partition
+  mount: name=/media/rootfs/ fstype=ext4 src={{disk}}2 state=mounted
+  tags: 
+    - disk
