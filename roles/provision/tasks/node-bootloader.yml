@@ -1,4 +1,0 @@
-- name: Configure UBoot
-  template: src=uEnv.txt.j2 dest=/media/boot/ force=yes
-  tags:
-    - bootloader

@@ -4,4 +4,9 @@
 
 - hosts: all
   roles:
-    - { role: provision }
+    - { role: mount }
+    - { role: common }
+    - { role: master, when: "node.type == 'master'" }
+    - { role: slave, when: "node.type == 'slave'"  }
+    - { role: unmount }
+

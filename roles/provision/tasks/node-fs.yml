@@ -1,5 +1,0 @@
-- name: Make sure the rootfs is empty
-  shell: rm -rf /media/rootfs/*
-
-- name: Unpack the downloaded rootfs
-  shell: creates=/media/rootfs/etc tar -xzpf /tmp/rootfs.tgz -C /media/rootfs
