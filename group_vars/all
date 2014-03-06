@@ -25,7 +25,7 @@ bigboards:
 rootfs:
   #url: 'https://rcn-ee.net/deb/minfs/raring/ubuntu-13.04-minimal-armhf-2013-08-25.tar.xz'
   #url: 'https://dl.dropboxusercontent.com/u/25238672/rootfs.tgz'
-  url: 'http://192.168.1.111/bb/rootfs.tgz'
+  url: 'http://192.168.2.106/bb/rootfs-all-30dec2013.tgz'
 
 kernel:
   version: '3.11.4-armv7-x14'
