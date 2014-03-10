@@ -1,0 +1,41 @@
+
+## -- Configure WIFI
+- name: Download the wifi nvram file
+  get_url: url=https://raw.github.com/Freescale/meta-fsl-arm-extra/master/recipes-bsp/broadcom-nvram-config/files/wandboard/nvram.txt dest=/media/rootfs/lib/firmware/brcm/brcmfmac-sdio.txt
+  tags:
+    - config
+    - network
+
+- name: link the firmware for the broadcom wifi adapter
+  file: state=link src=/media/rootfs/lib/firmware/brcm/brcmfmac4329.bin dest=/media/rootfs/lib/firmware/brcm/brcmfmac-sdio.bin
+  tags:
+    - config
+    - network
+
+- name: Copy network configuration
+  template: src=interfaces-master.j2 dest=/media/rootfs/etc/network/interfaces owner=root group=root
+  tags: 
+    - config
+    - network
+
+## -- Enable forwarding and masquerading
+- name: Enable Ipv4 forwarding
+  lineinfile: dest=/media/rootfs/etc/sysctl.conf regexp='^net.ipv4.ip_forward=' line='net.ipv4.ip_forward=1'
+  tags:
+    - config
+    - network
+    - nat
+
+- name: Copy the iptables script
+  copy: src=iptables.j2 dest=/media/rootfs/etc/iptables.sav
+  tags:
+    - config
+    - network
+    - nat
+
+- name: Configure iptables to load on the end of the runlevel 
+  copy: src=rc.local dest=/media/rootfs/etc/rc.local
+  tags:
+    - config
+    - network
+    - nat

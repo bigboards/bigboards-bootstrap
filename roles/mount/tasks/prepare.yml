@@ -1,0 +1,9 @@
+- name: Copy files to the local filesystem
+  copy: src={{item}} dest=/tmp/
+  with_items:
+    - u-boot.imx
+    - partitioning.cfg
+  tags:
+    - prepare
+
+

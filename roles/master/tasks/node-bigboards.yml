@@ -1,0 +1,13 @@
+---
+- name: Create the bigboards home directory
+  file: state=directory path=/media/rootfs/{{item}}
+  with_items:
+    - opt/bb
+    - opt/bb/runtimes
+    - opt/bb/tints.d
+
+- name: Unpack our bigboards management console
+  unarchive: src=opt/bb/runtimes/bigboards-mmc.tgz dest=/media/rootfs/opt/bb/runtimes/
+
+- name: Copy the init script for the Node daemon
+  copy: src=etc/init.d/bigboards-mmc dest=/media/rootfs/etc/init.d/bigboards-mmc mode=0777

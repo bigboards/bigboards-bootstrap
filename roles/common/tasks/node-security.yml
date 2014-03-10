@@ -1,0 +1,14 @@
+- name: Copy the SELinux config
+  copy: src=selinux dest=/media/rootfs/etc/selinux/config owner=root group=root
+  tags: 
+    - config
+
+- name: Create the root SSH folder
+  file: path=/media/rootfs/root/.ssh state=directory
+  tags: 
+    - config
+
+- name: Copy the authorized key to the root user
+  copy: src=authorized_keys dest=/media/rootfs/root/.ssh/authorized_keys owner=root group=root mode=0600
+  tags: 
+    - config

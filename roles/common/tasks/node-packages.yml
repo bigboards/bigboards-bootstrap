@@ -1,0 +1,6 @@
+---
+- name: Install the apt repositories
+  copy: src={{item}} dest=/media/rootfs/etc/apt/sources.list.d/
+  with_items:
+    - rquillo-ansible-raring.list
+    - bigboards.list

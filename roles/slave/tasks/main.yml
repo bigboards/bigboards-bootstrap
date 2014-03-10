@@ -1,0 +1,5 @@
+---
+
+# -- configure the network
+- include: node-network-slave.yml
+

@@ -1,0 +1,8 @@
+---
+- include: prepare.yml
+
+# -- Unmount existing partitions, recreate the partition table, install the bootloader and mount the new partitions again
+- include: unmount.yml
+- include: partition.yml
+- include: mount.yml
+

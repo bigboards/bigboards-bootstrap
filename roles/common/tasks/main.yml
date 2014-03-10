@@ -1,0 +1,31 @@
+---
+- include: prepare.yml
+
+# -- create the root filesystem and install the kernel
+- include: node-fs.yml
+- include: node-kernel.yml
+
+# -- configure the bootloader
+- include: node-bootloader.yml
+
+# -- configure the serial port
+- include: node-serial.yml
+
+# -- configure the network
+- include: node-network-general.yml
+
+# -- configure the security
+- include: node-security.yml
+
+# -- create the users
+- include: node-users.yml
+
+# -- add the packages
+- include: node-packages.yml
+
+# -- add the node disk
+- include: node-disk.yml
+
+# -- add the bigboards configuration
+- include: node-bigboards.yml
+
