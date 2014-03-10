@@ -1,18 +1,21 @@
 ---
 # Variables applicable to all hosts
+hex:
+  name: 'louis'
+  id: 'f1e04ca6-a712-11e3-9c5c-080027e25eed'
+
 node:
   type: 'master'
   hostname: 'bb1'
   network:
     mode: 'static'
-    address: '172.20.40.2'
+    address: '172.20.40.1'
     netmask: '255.255.255.240'
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
     dns:
       search: louis
       hosts:
-        - 192.168.1.1
         - 8.8.8.8
     wireless:
       essid: 'Haeger-low'
