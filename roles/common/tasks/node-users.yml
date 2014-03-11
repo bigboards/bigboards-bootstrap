@@ -19,16 +19,16 @@
     - users
 
 - name: Create the bigboards .ssh directory
-  file: path=/media/rootfs/opt/bigboards/.ssh state=directory mode=0644 owner=bigboards
+  file: path=/media/rootfs/opt/bigboards/.ssh state=directory mode=0644 owner=3333
   tags:
     - users
 
 - name: Copy the ssh keys for the bigboards user
-  copy: src=keys/ dest=/media/rootfs/opt/bigboards/.ssh/ mode=0644 owner=bigboards group=bigboards
+  copy: src=keys/ dest=/media/rootfs/opt/bigboards/.ssh/ mode=0644 owner=3333 group=3333
   tags:
     - users
 
 - name: Copy the authorized ssh keys for the bigboards user
-  copy: src=keys/id_rsa.pub dest=/media/rootfs/opt/bigboards/.ssh/authorized_keys mode=0644 owner=bigboards group=bigboards
+  copy: src=keys/id_rsa.pub dest=/media/rootfs/opt/bigboards/.ssh/authorized_keys mode=0644 owner=3333 group=3333
   tags:
     - users

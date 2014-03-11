@@ -10,4 +10,4 @@
   unarchive: src=opt/bb/runtimes/bigboards-mmc.tgz dest=/media/rootfs/opt/bb/runtimes/
 
 - name: Copy the init script for the Node daemon
-  copy: src=etc/init.d/bigboards-mmc dest=/media/rootfs/etc/init.d/bigboards-mmc mode=0777
+  copy: src=etc/init/bigboards-mmc.conf dest=/media/rootfs/etc/init/bigboards-mmc.conf mode=0777

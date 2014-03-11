@@ -2,4 +2,5 @@
 
 # -- configure the network
 - include: node-network-master.yml
+- include: node-bigboards.yml
 

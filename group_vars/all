@@ -5,11 +5,11 @@ hex:
   id: 'f1e04ca6-a712-11e3-9c5c-080027e25eed'
 
 node:
-  type: 'master'
-  hostname: 'bb1'
+  type: 'slave'
+  hostname: 'bb2'
   network:
     mode: 'static'
-    address: '172.20.40.1'
+    address: '172.20.40.2'
     netmask: '255.255.255.240'
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
@@ -20,7 +20,7 @@ node:
     wireless:
       essid: 'Haeger-low'
 
-disk: '/dev/sdd'
+disk: '/dev/mmcblk0'
 
 rootfs:
   #url: 'https://rcn-ee.net/deb/minfs/raring/ubuntu-13.04-minimal-armhf-2013-08-25.tar.xz'

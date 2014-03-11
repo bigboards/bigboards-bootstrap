@@ -7,7 +7,7 @@
     - network
 
 - name: link the firmware for the broadcom wifi adapter
-  file: state=link src=/media/rootfs/lib/firmware/brcm/brcmfmac4329.bin dest=/media/rootfs/lib/firmware/brcm/brcmfmac-sdio.bin
+  file: state=link force=yes src=/lib/firmware/brcm/brcmfmac4329.bin dest=/media/rootfs/lib/firmware/brcm/brcmfmac-sdio.bin
   tags:
     - config
     - network

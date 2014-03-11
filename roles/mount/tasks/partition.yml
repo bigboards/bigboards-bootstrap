@@ -9,12 +9,12 @@
     - disk
 
 - name: Create the filesystem for the boot partition
-  shell: mkfs.ext2 -L boot {{disk}}1
+  shell: mkfs.ext2 -L boot {{disk}}p1
   tags:
     - disk
 
 - name: Create the filesystem for the root partition
-  shell: mkfs.ext4 -L rootfs {{disk}}2
+  shell: mkfs.ext4 -L rootfs {{disk}}p2
   tags:
     - disk
 
