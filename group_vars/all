@@ -1,20 +1,20 @@
 ---
 # Variables applicable to all hosts
 hex:
-  name: 'louis'
-  id: 'f1e04ca6-a712-11e3-9c5c-080027e25eed'
+  name: 'alice'
+  id: '46cb7e4a-ac89-11e3-b45d-00247e6c402f'
 
 node:
   type: 'slave'
-  hostname: 'bb2'
+  hostname: 'bb6'
   network:
     mode: 'static'
-    address: '172.20.40.2'
+    address: '172.20.40.6'
     netmask: '255.255.255.240'
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
     dns:
-      search: louis
+      search: alice
       hosts:
         - 8.8.8.8
     wireless:

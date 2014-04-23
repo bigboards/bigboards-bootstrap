@@ -1,7 +1,7 @@
 
 ## -- Configure WIFI
 - name: Download the wifi nvram file
-  get_url: url=https://raw.github.com/Freescale/meta-fsl-arm-extra/master/recipes-bsp/broadcom-nvram-config/files/wandboard/nvram.txt dest=/media/rootfs/lib/firmware/brcm/brcmfmac-sdio.txt
+  get_url: url=https://raw.github.com/Freescale/meta-fsl-arm-extra/master/recipes-bsp/broadcom-nvram-config/files/wandboard/nvram.txt dest=/media/rootfs/lib/firmware/brcm/brcmfmac-sdio.txt validate_certs=no
   tags:
     - config
     - network
