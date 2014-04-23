@@ -1,15 +1,15 @@
 ---
 # Variables applicable to all hosts
 hex:
-  name: 'alice'
-  id: '46cb7e4a-ac89-11e3-b45d-00247e6c402f'
+  name: 'dexter'
+  id: '605dd7d0-cb07-11e3-a94f-3860770e53a4'
 
 node:
-  type: 'slave'
-  hostname: 'bb6'
+  type: 'master'
+  hostname: 'bb1'
   network:
     mode: 'static'
-    address: '172.20.40.6'
+    address: '172.20.40.1'
     netmask: '255.255.255.240'
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
@@ -18,14 +18,15 @@ node:
       hosts:
         - 8.8.8.8
     wireless:
-      essid: 'Haeger-low'
+      essid: ''
 
 disk: '/dev/mmcblk0'
 
 rootfs:
   #url: 'https://rcn-ee.net/deb/minfs/raring/ubuntu-13.04-minimal-armhf-2013-08-25.tar.xz'
   #url: 'https://dl.dropboxusercontent.com/u/25238672/rootfs.tgz'
-  url: 'http://192.168.2.106/bb/rootfs-all-30dec2013.tgz'
+  #url: 'http://192.168.2.106/bb/rootfs-all-30dec2013.tgz'
+  url: 'http://apt.bigboards.io/images/rootfs-all-30dec2013.tgz'
 
 kernel:
   version: '3.11.4-armv7-x14'
