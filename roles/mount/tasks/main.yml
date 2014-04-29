@@ -1,8 +1,13 @@
 ---
-- include: prepare.yml
 
-# -- Unmount existing partitions, recreate the partition table, install the bootloader and mount the new partitions again
-- include: unmount.yml
-- include: partition.yml
-- include: mount.yml
+- name: be sure the mountpoints exist
+  file: state=directory path=/media/{{item.key}}
+  with_dict: disk.partitions
+  tags:
+    - disk
 
+- name: be sure the partitions are mounted
+  shell: mount -t {{item.value.type}} {{item.value.dev}} /media/{{item.key}}
+  with_dict: disk.partitions
+  tags: 
+    - disk

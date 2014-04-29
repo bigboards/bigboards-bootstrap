@@ -1,5 +1,0 @@
-- name: Install the CPU Frequency Policy
-  copy: src=etc/default/cpufrequtils dest=/etc/default/cpufrequtils
-
-- name: Copy the SysFS Configuration
-  copy: src=etc/sysfs.conf dest=/etc/sysfs.conf

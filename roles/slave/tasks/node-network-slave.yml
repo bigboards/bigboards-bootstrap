@@ -1,4 +1,0 @@
-- name: Copy network configuration
-  template: src=interfaces-slave.j2 dest=/media/rootfs/etc/network/interfaces owner=root group=root
-  tags: 
-    - config

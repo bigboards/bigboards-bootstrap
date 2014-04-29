@@ -1,4 +1,0 @@
-- name: Copy serial configuration
-  template: src=serial.conf.j2 dest=/media/rootfs/etc/init/serial.conf owner=root group=root
-  tags: 
-    - config

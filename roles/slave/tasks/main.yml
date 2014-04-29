@@ -1,5 +1,5 @@
 ---
-
-# -- configure the network
-- include: node-network-slave.yml
-
+- name: be sure this node uses the wired network for communication
+  template: src=interfaces-slave.j2 dest=/media/root/etc/network/interfaces owner=root group=root
+  tags: 
+    - network

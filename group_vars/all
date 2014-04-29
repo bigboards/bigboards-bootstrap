@@ -2,14 +2,14 @@
 # Variables applicable to all hosts
 hex:
   name: 'alice'
-  id: '46cb7e4a-ac89-11e3-b45d-00247e6c402f'
+  id: 'cced64d1-1b52-471c-92fe-cca09d8c53e6'
 
 node:
   type: 'slave'
-  hostname: 'bb6'
+  hostname: 'bb3'
   network:
     mode: 'static'
-    address: '172.20.40.6'
+    address: '172.20.40.3'
     netmask: '255.255.255.240'
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
@@ -20,12 +20,20 @@ node:
     wireless:
       essid: 'Haeger-low'
 
-disk: '/dev/mmcblk0'
+disk: 
+  dev: '/dev/mmcblk0'
+  partitions: 
+    boot:
+      dev: '/dev/mmcblk0p1'
+      type: 'ext2'
+    root:
+      dev: '/dev/mmcblk0p2'
+      type: 'ext4'
 
-rootfs:
-  #url: 'https://rcn-ee.net/deb/minfs/raring/ubuntu-13.04-minimal-armhf-2013-08-25.tar.xz'
-  #url: 'https://dl.dropboxusercontent.com/u/25238672/rootfs.tgz'
-  url: 'http://192.168.2.106/bb/rootfs-all-30dec2013.tgz'
+mirror: 'http://apt.bigboards.io'
 
-kernel:
-  version: '3.11.4-armv7-x14'
+cacheDir: '/tmp'
+
+version:
+  rootfs: 'rootfs-bb-28042014-1222.tgz'
+  kernel: '3.14.1-armv7-x4'

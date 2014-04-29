@@ -1,0 +1,29 @@
+---
+- name: be sure the bootstrap files are copied to the local filesystem
+  get_url: url={{mirror}}/bootstrap/{{item}} dest={{cacheDir}}
+  with_items:
+    - u-boot.imx
+    - partitioning.cfg
+  tags:
+    - prepare
+
+- name: be sure the disk is empty
+  shell: dd if=/dev/zero of={{disk.dev}} bs=512 count=63
+  tags:
+    - disk
+
+- name: be sure the disk is holding the correct partition layout 
+  shell: sfdisk --force {{disk.dev}} < {{cacheDir}}/partitioning.cfg
+  tags:
+    - disk
+
+- name: be sure the disks have the right partition format
+  shell: mkfs.{{item.value.type}} -L {{item.key}} {{item.value.dev}}
+  with_dict: disk.partitions
+  tags:
+    - disk
+
+- name: be sure the bootloader is installed
+  shell: dd if={{cacheDir}}/u-boot.imx of={{disk.dev}} bs=512 seek=2
+  tags:
+    - disk
