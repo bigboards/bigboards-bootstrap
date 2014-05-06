@@ -1,6 +1,21 @@
 ---
 
 # -- ----------------------------------------------------------------------- --
+# -- Configuration
+# -- ----------------------------------------------------------------------- --
+- name: be sure the hex configuration file is available
+  template: src=opt/bb/hex.yml dest=/media/root/opt/bb/hex.yml owner=1000 group=1002
+
+- name: be sure the hex tints directory is available
+  file: state=directory path=/media/root/opt/bb/{{item}} owner=1000 group=1002
+  with_items:
+    - tints.d
+    - runtimes
+
+- name: be sure the bootstrap script is available
+  copy: src=opt/bb/runtimes/bootstrap.sh dest=/media/root/opt/bb/runtimes/ owner=1000 group=1002
+
+# -- ----------------------------------------------------------------------- --
 # -- WIFI
 # -- ----------------------------------------------------------------------- --
 - name: be sure the wifi nvram file is available

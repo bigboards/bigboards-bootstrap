@@ -7,13 +7,11 @@
   tags:
     - prepare
 
-- name: be sure the disk is empty
-  shell: dd if=/dev/zero of={{disk.dev}} bs=512 count=63
-  tags:
-    - disk
+- name: be sure all partitions are removed
+  shell: parted -s {{disk.dev}} mklabel msdos
 
 - name: be sure the disk is holding the correct partition layout 
-  shell: sfdisk --force {{disk.dev}} < {{cacheDir}}/partitioning.cfg
+  shell: sfdisk --in-order --Linux --unit M --force {{disk.dev}} < {{cacheDir}}/partitioning.cfg
   tags:
     - disk
 

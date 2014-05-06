@@ -1,0 +1,3 @@
+---
+- name: display the configuration
+  debug: msg="Preparing node {{node.sequence}} with hostname {{node.hostname}} for hex {{hex.id}}. It holds a container with sequence {{ node.container }}"

@@ -117,3 +117,12 @@
   tags:
     - rootfs
     - kernel
+
+# -- ----------------------------------------------------------------------- --
+# -- Ansible local facts
+# -- ----------------------------------------------------------------------- --
+- name: be sure the ansible local facts directory exists
+  file: state=directory path=/media/root/etc/ansible/facts.d
+
+- name: be sure the hex facts are deployed to the ansible local facts directory
+  template: src=hex.fact dest=/media/root/etc/ansible/facts.d/hex.fact

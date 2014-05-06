@@ -5,11 +5,13 @@ hex:
   id: 'cced64d1-1b52-471c-92fe-cca09d8c53e6'
 
 node:
-  type: 'slave'
-  hostname: 'bb3'
+  type: "{{ role }}"
+  sequence: "{{ sequence|int }}"
+  container: "{{ sequence|int + 7 }}"
+  hostname: "bb{{ sequence }}"
   network:
     mode: 'static'
-    address: '172.20.40.3'
+    address: "172.20.40.{{ sequence }}"
     netmask: '255.255.255.240'
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
@@ -18,7 +20,7 @@ node:
       hosts:
         - 8.8.8.8
     wireless:
-      essid: ''
+      essid: 'Haeger-low'
 
 disk: 
   dev: '/dev/mmcblk0'

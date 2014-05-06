@@ -1,4 +1,6 @@
 ---
+- name: be sure all data was synced
+  shell: "sync && sync"
 
 - name: be sure the partitions are not mounted
   shell: umount -t {{item.value.type}} {{item.value.dev}}
