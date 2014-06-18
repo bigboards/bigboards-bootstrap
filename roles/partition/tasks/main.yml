@@ -2,8 +2,16 @@
 - name: be sure the bootstrap files are copied to the local filesystem
   get_url: url={{mirror}}/bootstrap/{{item}} dest={{cacheDir}}
   with_items:
-    - u-boot.imx
+    - '{{ version.uboot }}'
     - partitioning.cfg
+  tags:
+    - prepare
+
+- name: be sure the boot loader resources are available on the remote system
+  get_url: url={{mirror}}/boot/{{item}} dest={{cacheDir}}
+  with_items:
+    - SPL
+    - u-boot.img
   tags:
     - prepare
 
@@ -25,3 +33,13 @@
   shell: dd if={{cacheDir}}/u-boot.imx of={{disk.dev}} bs=512 seek=2
   tags:
     - disk
+
+#- name: be sure the SPL bootloader is installed
+#  shell: dd if={{cacheDir}}/SPL of={{disk.dev}} bs=1k seek=1 oflag=dsync
+#  tags:
+#    - disk
+
+#- name: be sure the u-boot bootloader is installed
+#  shell: dd if={{cacheDir}}/u-boot.img of={{disk.dev}} bs=1k seek=69 oflag=dsync
+#  tags:
+#    - disk

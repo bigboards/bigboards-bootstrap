@@ -1,8 +1,8 @@
 ---
 # Variables applicable to all hosts
 hex:
-  name: 'alice'
-  id: 'cced64d1-1b52-471c-92fe-cca09d8c53e6'
+  name: 'luther'
+  id: 'C79AFAE0-CF21-11E3-9C1A-0800200C9A66'
 
 node:
   type: "{{ role }}"
@@ -16,20 +16,20 @@ node:
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
     dns:
-      search: alice
+      search: luther
       hosts:
         - 8.8.8.8
     wireless:
-      essid: 'Haeger-low'
+      essid: 'bb'
 
 disk: 
-  dev: '/dev/mmcblk0'
+  dev: '/dev/sdc'
   partitions: 
     boot:
-      dev: '/dev/mmcblk0p1'
+      dev: '/dev/sdc1'
       type: 'ext2'
     root:
-      dev: '/dev/mmcblk0p2'
+      dev: '/dev/sdc2'
       type: 'ext4'
 
 mirror: 'http://apt.bigboards.io'
@@ -37,5 +37,10 @@ mirror: 'http://apt.bigboards.io'
 cacheDir: '/tmp'
 
 version:
-  rootfs: 'rootfs-bb-28042014-1222.tgz'
-  kernel: '3.14.1-armv7-x4'
+  rootfs: 'rootfs-bb-raring-07052014.tgz'
+  #rootfs: 'rootfs-all-30dec2013.tgz'
+  #kernel: '3.14.1-armv7-x4'
+  #kernel: '3.0.101'
+  kernel: '3.10.17-1.0.0-wandboard-02432-g9d567e4'
+  #uboot: 'u-boot.imx'
+  uboot: 'uboot-2014.04/u-boot.imx'

@@ -1,3 +1,5 @@
-mmcroot=/dev/mmcblk0p2 ro
-mmcrootfstype=ext4 rootwait fixrtc
+loadzimage=ext2load mmc 0 ${loadaddr} zImage 
+loadfdt=ext2load mmc 0 ${fdt_addr} ${fdt_file} 
 video=HDMI-A-1:1024x768@60e
+mmcargs=setenv bootargs root=/dev/mmcblk0p2 ro rootfstype=ext4 rootwait fixrtc ${optargs}
+uenvcmd=mmc dev 0; run loadzimage; run loadfdt; run mmcargs; bootz ${loadaddr} - ${fdt_addr}

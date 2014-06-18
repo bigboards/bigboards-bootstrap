@@ -1,9 +1,14 @@
-hex:
-  id: {{ hex.id }}
-  name: {{ hex.name }}
-  node:
-    role: {{ node.type }}
-    slot: {{ node.sequence }}
-	master: {{ node.network.gateway }}
-	container:
-		slot: {{ node.container }}
+{
+  "hex": {
+    "id": "{{ hex.id }}",
+    "name": "{{ hex.name }}",
+    "node": {
+      "role": "{{ node.type }}",
+      "slot": {{ node.sequence }},
+	  "master": "{{ node.network.gateway }}",
+	  "container": {
+		"slot": {{ node.container }}
+	  }
+	}
+  }
+}

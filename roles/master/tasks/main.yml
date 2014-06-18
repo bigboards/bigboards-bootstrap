@@ -18,13 +18,14 @@
 # -- ----------------------------------------------------------------------- --
 # -- WIFI
 # -- ----------------------------------------------------------------------- --
-- name: be sure the wifi nvram file is available
-  get_url: url=https://raw.github.com/Freescale/meta-fsl-arm-extra/master/recipes-bsp/broadcom-nvram-config/files/wandboard/nvram.txt dest=/media/root/lib/firmware/brcm/brcmfmac-sdio.txt validate_certs=no
-  tags:
-    - network
+- name: be sure the old firmware has been removed
+  shell: rm -rf /media/root/lib/firmware/brcm/*
 
-- name: be sure the link to the firmware for the broadcom wifi adapter is available
-  file: state=link force=yes src=/lib/firmware/brcm/brcmfmac4329.bin dest=/media/root/lib/firmware/brcm/brcmfmac-sdio.bin
+- name: be sure the wifi firmware is available
+  get_url: url={{mirror}}/firmware/brcm/{{item.original}} dest=/media/root/lib/firmware/brcm/{{item.target}}
+  with_items:
+    - { original: 'bcm4329_fw.bin', target: 'brcmfmac-sdio.bin'}
+    - { original: 'bcm4329_nvram.txt', target: 'brcmfmac-sdio.txt'}
   tags:
     - network
 

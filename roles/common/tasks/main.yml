@@ -3,12 +3,6 @@
 # -- ----------------------------------------------------------------------- --
 # -- The Boot Filesystem
 # -- ----------------------------------------------------------------------- --
-- name: be sure the DTBS directory exists
-  file: state=directory path=/media/boot/dtbs
-  tags:
-    - rootfs
-    - boot
-
 - name: be sure the UBoot configuration has been set
   template: src=uEnv.txt.j2 dest=/media/boot/uEnv.txt
   tags:
@@ -25,7 +19,7 @@
     - rootfs
 
 - name: be sure the rootfs image is copied to the local filesystem
-  get_url: url={{mirror}}/images/{{version.rootfs}} dest={{cacheDir}}
+  get_url: url={{mirror}}/images/{{version.rootfs}} dest={{cacheDir}}/{{version.rootfs}}
   tags:
     - rootfs
 
@@ -93,9 +87,9 @@
 - name: be sure the kernel files are copied to the local filesystem
   get_url: url={{mirror}}/kernel/{{item}} dest={{cacheDir}}
   with_items:
-    - '{{version.kernel}}-dtbs.tar.gz'
     - '{{version.kernel}}-modules.tar.gz'
     - '{{version.kernel}}.zImage'
+    - imx6q-wandboard.dtb
   tags:
     - rootfs
     - kernel
@@ -106,8 +100,8 @@
     - rootfs
     - kernel
 
-- name: be sure the DTBS is available
-  shell: tar xvf {{cacheDir}}/{{version.kernel}}-dtbs.tar.gz -C /media/boot/dtbs/
+- name: be sure the device tree is availble on the boot disk
+  copy: src={{cacheDir}}/imx6q-wandboard.dtb dest=/media/boot/imx6q-wandboard.dtb
   tags:
     - rootfs
     - kernel
