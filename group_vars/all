@@ -1,7 +1,7 @@
 ---
 # Variables applicable to all hosts
 hex:
-  name: 'luther'
+  name: 'luthor'
   id: 'C79AFAE0-CF21-11E3-9C1A-0800200C9A66'
 
 node:
@@ -16,7 +16,7 @@ node:
     broadcast: '172.20.40.15'
     gateway: '172.20.40.1'
     dns:
-      search: luther
+      search: luthor
       hosts:
         - 8.8.8.8
     wireless:
