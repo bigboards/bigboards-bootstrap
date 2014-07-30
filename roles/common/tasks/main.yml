@@ -59,6 +59,16 @@
     - network
 
 # -- ----------------------------------------------------------------------- --
+# -- Patch the repsository configuration
+# -- ----------------------------------------------------------------------- --
+
+- name: be sure the system uses the right apt repositories
+  copy: src=files/etc/apt/sources.list dest=/etc/apt/sources.list owner=root group=root
+  tags:
+    - rootfs
+    - apt
+
+# -- ----------------------------------------------------------------------- --
 # -- Copy the keys used for authenticating
 # -- ----------------------------------------------------------------------- --
 
