@@ -13,7 +13,7 @@
     - runtimes
 
 - name: be sure the bootstrap script is available
-  copy: src=opt/bb/runtimes/bootstrap.sh dest=/media/root/opt/bb/runtimes/ owner=1000 group=1002
+  copy: src=opt/bb/runtimes/bootstrap.sh dest=/media/root/opt/bb/runtimes/ owner=1000 group=1002 mode=0755
 
 # -- ----------------------------------------------------------------------- --
 # -- WIFI
