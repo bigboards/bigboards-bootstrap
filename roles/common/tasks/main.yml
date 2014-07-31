@@ -63,7 +63,7 @@
 # -- ----------------------------------------------------------------------- --
 
 - name: be sure the system uses the right apt repositories
-  copy: src=etc/apt/sources.list dest=/etc/apt/sources.list owner=root group=root
+  copy: src=etc/apt/sources.list dest=/media/root/etc/apt/sources.list owner=root group=root
   tags:
     - rootfs
     - apt
