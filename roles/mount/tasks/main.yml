@@ -1,7 +1,6 @@
 ---
 - name: be sure the mountpoints exist
   file: state=directory path=/media/bbfs
-  with_dict: disk.partitions
   tags:
     - disk
 
