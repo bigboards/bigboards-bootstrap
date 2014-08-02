@@ -1,0 +1,9 @@
+---
+- name: be sure avahi is restarted
+  service: name=avahi-daemon state=restarted
+
+- name: be sure the network is restarted
+  service: name=networking state=restarted
+
+- name: be sure the rc.local script is invoked
+  shell: /etc/rc.local

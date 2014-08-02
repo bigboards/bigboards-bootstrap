@@ -7,40 +7,17 @@ hex:
 node:
   type: "{{ role }}"
   sequence: "{{ sequence|int }}"
-  container: "{{ sequence|int + 7 }}"
-  hostname: "bb{{ sequence }}"
-  network:
-    mode: 'static'
-    address: "172.20.40.{{ sequence }}"
-    netmask: '255.255.255.240'
-    broadcast: '172.20.40.15'
-    gateway: '172.20.40.1'
-    dns:
-      search: luthor
-      hosts:
-        - 8.8.8.8
-    wireless:
-      essid: 'bb'
+  host:
+    hostname: "bb{{ sequence }}"
+  container:
+    hostname: "vbb{{ sequence }}"
 
 disk: 
   dev: '/dev/sdc'
-  partitions: 
-    boot:
-      dev: '/dev/sdc1'
-      type: 'ext2'
-    root:
-      dev: '/dev/sdc2'
-      type: 'ext4'
-
-mirror: 'http://apt.bigboards.io'
+  part: '/dev/sdc1'
 
 cacheDir: '/tmp'
 
-version:
-  rootfs: 'rootfs-bb-raring-07052014.tgz'
-  #rootfs: 'rootfs-all-30dec2013.tgz'
-  #kernel: '3.14.1-armv7-x4'
-  #kernel: '3.0.101'
-  kernel: '3.10.17-1.0.0-wandboard-02432-g9d567e4'
-  #uboot: 'u-boot.imx'
-  uboot: 'uboot-2014.04/u-boot.imx'
+url:
+  bootloader: 'http://apt.bigboards.io/boot/wand-uboot-quad.imx'
+  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-3.10.17.1-wand-armhf.com.tgz'

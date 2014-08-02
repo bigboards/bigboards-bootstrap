@@ -1,3 +1,0 @@
-slot: {{ node.sequence }}
-master: {{ node.network.gateway }}
-environment: production

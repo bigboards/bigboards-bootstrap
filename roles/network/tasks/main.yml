@@ -1,0 +1,32 @@
+---
+- name: be sure the host system has the right network configuration
+  template: src=host/{{item}} dest=/media/bbfs/{{item}} owner=root group=root
+  items:
+    - etc/hostname
+    - etc/hosts
+    - etc/network/interfaces
+    - etc/dhcp/dhclient.conf
+    - etc/avahi/avahi-daemon.conf
+  tags:
+    - network
+  notify:
+    - be sure avahi is restarted
+    - be sure the network is restarted
+
+- name: be sure the containers have the right network configuration
+  template: src=container/{{item}} dest=/media/bbfs/var/lib/lxc/bb-template/rootfs/{{item}} owner=root group=root
+  items:
+    - etc/hostname
+    - etc/hosts
+    - etc/network/interfaces
+    - etc/dhcp/dhclient.conf
+    - etc/avahi/avahi-daemon.conf
+  tags:
+    - network
+
+- name: be sure avahi is started at boot
+  service: name=avahi-daemon enabled=true
+  tags:
+    - network
+  notify:
+    - be sure avahi is restarted

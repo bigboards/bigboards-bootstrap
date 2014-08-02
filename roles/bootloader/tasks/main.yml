@@ -1,0 +1,10 @@
+---
+- name: be sure the bootloader is copied to the local filesystem
+  get_url: url={{url.bootloader}} dest={{cacheDir}}/uboot.imx
+  tags:
+    - bootloader
+
+- name: be sure the bootloader is installed
+  shell: dd if={{cacheDir}}/uboot.imx of={{disk.dev}} bs=512 seek=2
+  tags:
+    - bootloader

@@ -1,45 +1,15 @@
 ---
-- name: be sure the bootstrap files are copied to the local filesystem
-  get_url: url={{mirror}}/bootstrap/{{item}} dest={{cacheDir}}
-  with_items:
-    - '{{ version.uboot }}'
-    - partitioning.cfg
-  tags:
-    - prepare
-
-- name: be sure the boot loader resources are available on the remote system
-  get_url: url={{mirror}}/boot/{{item}} dest={{cacheDir}}
-  with_items:
-    - SPL
-    - u-boot.img
-  tags:
-    - prepare
-
 - name: be sure all partitions are removed
   shell: parted -s {{disk.dev}} mklabel msdos
+  tags:
+    - disk
 
 - name: be sure the disk is holding the correct partition layout 
-  shell: sfdisk --in-order --Linux --unit M --force {{disk.dev}} < {{cacheDir}}/partitioning.cfg
+  shell: parted {{disk.dev}} mklabel msdos mkpart primary 0% 100%
   tags:
     - disk
 
 - name: be sure the disks have the right partition format
-  shell: mkfs.{{item.value.type}} -L {{item.key}} {{item.value.dev}}
-  with_dict: disk.partitions
+  shell: mkfs.ext4 {{disk.part}}
   tags:
     - disk
-
-- name: be sure the bootloader is installed
-  shell: dd if={{cacheDir}}/u-boot.imx of={{disk.dev}} bs=512 seek=2
-  tags:
-    - disk
-
-#- name: be sure the SPL bootloader is installed
-#  shell: dd if={{cacheDir}}/SPL of={{disk.dev}} bs=1k seek=1 oflag=dsync
-#  tags:
-#    - disk
-
-#- name: be sure the u-boot bootloader is installed
-#  shell: dd if={{cacheDir}}/u-boot.img of={{disk.dev}} bs=1k seek=69 oflag=dsync
-#  tags:
-#    - disk

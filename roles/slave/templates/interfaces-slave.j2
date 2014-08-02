@@ -1,9 +1,0 @@
-auto lo
-iface lo inet loopback
-
-auto eth0
-iface eth0 inet {{node.network.mode}}
-    address {{node.network.address}}
-    netmask {{node.network.netmask}}
-    broadcast {{node.network.broadcast}}
-    gateway {{node.network.gateway}}

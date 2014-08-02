@@ -1,15 +1,14 @@
 ---
-# This playbook deploys the AWX application (database, web and worker) to a
-# single server.
-
 - hosts: all
   roles:
     - { role: hello }
     - { role: unmount }
     - { role: partition }
+    - { role: bootloader }
     - { role: mount }
-    - { role: common }
-    - { role: master, when: "node.type == 'master'" }
-    - { role: slave, when: "node.type == 'slave'"  }
+    - { role: rootfs }
+    - { role: os }
+    - { role: network }
+    - { role: ansible }
     - { role: unmount }
 

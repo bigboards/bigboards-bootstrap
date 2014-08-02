@@ -1,0 +1,15 @@
+---
+- name: be sure the rootfs is empty
+  shell: rm -rf /media/bbfs/*
+  tags:
+    - rootfs
+
+- name: be sure the rootfs image is copied to the local filesystem
+  get_url: url={{url.rootfs}} dest={{cacheDir}}/rootfs.tgz
+  tags:
+    - rootfs
+
+- name: be sure the rootfs is unpacked onto the right location
+  unarchive: copy=yes src={{cacheDir}}/rootfs.tgz dest=/media/bbfs
+  tags:
+    - rootfs
