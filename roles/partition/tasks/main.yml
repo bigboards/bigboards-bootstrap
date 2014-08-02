@@ -5,7 +5,7 @@
     - disk
 
 - name: be sure the disk is holding the correct partition layout 
-  shell: parted {{disk.dev}} mklabel msdos mkpart primary 0% 100%
+  shell: parted {{disk.dev}} mkpart primary 0% 100%
   tags:
     - disk
 
