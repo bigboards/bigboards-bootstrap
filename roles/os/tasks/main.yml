@@ -1,3 +1,6 @@
 ---
 - name: be sure the new bash prompt is active
-  lineinfile: dest=/etc/bash.bashrc regexp='^PS1=' line="PS1=$'\u2b22 {{ hex.name }} \u@\h \w\$ '"
+  lineinfile: dest=/media/bbfs/etc/bash.bashrc regexp='^PS1=' line="PS1=$'\u2b22 {{ hex.name }} \u@\h \w\$ '"
+
+- name: be sure the correct sources.list file is available
+  copy: src=sources.list dest=/media/bbfs/etc/apt state=present
