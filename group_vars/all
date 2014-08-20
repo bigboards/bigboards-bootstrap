@@ -8,9 +8,9 @@ node:
   type: "{{ role }}"
   sequence: "{{ sequence|int }}"
   host:
-    hostname: "bb{{ sequence }}"
+    hostname: "{{ hex.name }}-node{{ sequence }}"
   container:
-    hostname: "vbb{{ sequence }}"
+    hostname: "{{ hex.name }}-virt{{ sequence }}"
 
 disk: 
   dev: '/dev/sdc'
