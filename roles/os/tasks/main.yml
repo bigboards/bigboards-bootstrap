@@ -6,7 +6,7 @@
   copy: src=sources.list dest=/media/bbfs/etc/apt
 
 - name: be sure the log files have the correct permissions
-  file: state=present path=/media/bbfs/{{item}} owner=101 group=4
+  file: state=file path=/media/bbfs/{{item}} owner=101 group=4
   with_items:
     - var/log/syslog
     - var/log/auth.log
