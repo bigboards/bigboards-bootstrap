@@ -8,3 +8,6 @@
 
 - name: be sure the hex facts are deployed to the ansible local facts directory
   template: src=hex.fact dest=/media/bbfs/etc/ansible/facts.d/hex.fact
+
+- name: be sure the hosts of this hex are copied to the bb directory
+  template: src=hosts dest=/media/bbfs/opt/bb/hosts
