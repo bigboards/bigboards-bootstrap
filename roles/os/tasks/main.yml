@@ -2,6 +2,9 @@
 - name: be sure the new bash prompt is active
   lineinfile: dest=/media/bbfs/etc/bash.bashrc regexp='^PS1=' line="PS1=$'\u2b22 {{ hex.name }} \u@\h \w\$ '"
 
+- name: be sure the udev network rules are dropped
+  copy: src=70-persistent-net.rules dest=/media/bbfs/etc/udev/rules.d/70-persistent-net.rules
+
 - name: be sure the correct sources.list file is available
   copy: src=sources.list dest=/media/bbfs/etc/apt
 
