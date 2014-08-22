@@ -8,9 +8,9 @@ node:
   type: "{{ role }}"
   sequence: "{{ sequence|int }}"
   host:
-    hostname: "{{ hex.name }}-node{{ sequence }}"
+    hostname: "{{ hex.name }}-n{{ sequence }}"
   container:
-    hostname: "{{ hex.name }}-virt{{ sequence }}"
+    hostname: "{{ hex.name }}-v{{ sequence }}"
 
 disk: 
   dev: '/dev/sdc'
@@ -20,4 +20,4 @@ cacheDir: '/tmp'
 
 url:
   bootloader: 'http://apt.bigboards.io/boot/wand-uboot-quad.imx'
-  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-3.10.17.1-wand-armhf.com.tgz'
+  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-20140822-wand.tgz'

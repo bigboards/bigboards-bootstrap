@@ -1,1 +1,1 @@
-127.0.0.1 {{node.container.hostname}} {{node.container.hostname}}.local localhost
+127.0.0.1 {{node.container.hostname}} localhost

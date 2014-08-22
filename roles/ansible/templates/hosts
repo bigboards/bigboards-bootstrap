@@ -3,25 +3,25 @@ host-coordinators
 host-workers
 
 [host-coordinators]
-{{hex.name}}-node1   ansible_ssh_user=bb
+{{hex.name}}-n1   ansible_ssh_user=bb
 
 [host-workers]
-{{hex.name}}-node2   ansible_ssh_user=bb
-{{hex.name}}-node3   ansible_ssh_user=bb
-{{hex.name}}-node4   ansible_ssh_user=bb
-{{hex.name}}-node5   ansible_ssh_user=bb
-{{hex.name}}-node6   ansible_ssh_user=bb
+{{hex.name}}-n2   ansible_ssh_user=bb
+{{hex.name}}-n3   ansible_ssh_user=bb
+{{hex.name}}-n4   ansible_ssh_user=bb
+{{hex.name}}-n5   ansible_ssh_user=bb
+{{hex.name}}-n6   ansible_ssh_user=bb
 
 [lxc:children]
 lxc-coordinators
 lxc-workers
 
 [lxc-coordinators]
-{{hex.name}}-virt1   ansible_ssh_user=bb
+{{hex.name}}-v1   ansible_ssh_user=bb
 
 [lxc-workers]
-{{hex.name}}-virt2   ansible_ssh_user=bb
-{{hex.name}}-virt3   ansible_ssh_user=bb
-{{hex.name}}-virt4   ansible_ssh_user=bb
-{{hex.name}}-virt5   ansible_ssh_user=bb
-{{hex.name}}-virt6   ansible_ssh_user=bb
+{{hex.name}}-v2   ansible_ssh_user=bb
+{{hex.name}}-v3   ansible_ssh_user=bb
+{{hex.name}}-v4   ansible_ssh_user=bb
+{{hex.name}}-v5   ansible_ssh_user=bb
+{{hex.name}}-v6   ansible_ssh_user=bb

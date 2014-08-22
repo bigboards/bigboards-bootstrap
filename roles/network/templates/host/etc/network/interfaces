@@ -1,9 +1,18 @@
 auto lo
 iface lo inet loopback
 
+# physical network interface
 auto eth0
 iface eth0 inet manual
 
+# vlan for internal traffic
+auto vlan1
+iface vlan1 inet static
+    vlan-raw-device eth0
+    address 172.20.40.{{ node.sequence }}
+    netmask 255.255.255.0
+
+# ethernet bridge for lxc
 auto br0
 iface br0 inet dhcp
     bridge_ports eth0

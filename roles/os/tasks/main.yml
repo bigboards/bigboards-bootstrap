@@ -11,3 +11,6 @@
     - var/log/syslog
     - var/log/auth.log
     - var/log/kern.log
+
+- name: be sure multicast_snooping is disabled when starting avahi
+  copy: src=avahi-daemon.conf path=/media/bbfs/etc/init/avahi-daemon.conf

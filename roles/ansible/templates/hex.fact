@@ -2,7 +2,6 @@
     "id": "{{ hex.id }}",
     "name": "{{ hex.name }}",
     "node": {
-      "role": "{{ node.type }}",
-      "slot": {{ node.sequence }}
+      "role": "{{ node.type }}"
 	}
 }
