@@ -1,8 +1,8 @@
 ---
 # Variables applicable to all hosts
 hex:
-  name: 'luthor'
-  id: 'C79AFAE0-CF21-11E3-9C1A-0800200C9A66'
+  name: 'alice'
+  id: 'cced64d1-1b52-471c-92fe-cca09d8c53e6'
 
 node:
   type: "{{ role }}"
