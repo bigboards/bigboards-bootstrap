@@ -1,8 +1,8 @@
 ---
 # Variables applicable to all hosts
 hex:
-  name: 'alice'
-  id: 'cced64d1-1b52-471c-92fe-cca09d8c53e6'
+  name: 'infinite'
+  id: '1b57dc1f-c48f-468f-b7f9-8957f64a556c'
 
 node:
   type: "{{ role }}"
@@ -13,8 +13,8 @@ node:
     hostname: "{{ hex.name }}-v{{ sequence }}"
 
 disk: 
-  dev: '/dev/sdc'
-  part: '/dev/sdc1'
+  dev: '/dev/mmcblk0'
+  part: '/dev/mmcblk0p1'
 
 cacheDir: '/tmp'
 
