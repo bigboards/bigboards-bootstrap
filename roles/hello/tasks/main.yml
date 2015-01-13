@@ -1,3 +1,3 @@
 ---
 - name: display the configuration
-  debug: msg="Preparing node {{node.sequence}} with hostname {{node.host.hostname}} for hex {{hex.id}}."
+  debug: msg="Preparing node {{node.sequence}} for role {{node.type}} with hostname {{node.host.hostname}} for hex {{hex.id}}."
