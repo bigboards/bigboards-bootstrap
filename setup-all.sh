@@ -11,7 +11,11 @@ SIZE=$2
 
 RANGE=`echo 10.$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1)`
 
-[[ "$ARCH" -ne "intel" ] && [ "$ARCH" -ne "arm" ]] && echo "Hex architecture should be 'intel' or 'arm'" && exit 1
+if [ "$ARCH" -ne "intel" ] && [ "$ARCH" -ne "arm" ]; 
+then 
+	echo "Hex architecture should be 'intel' or 'arm'" 
+	exit 1
+fi
 
 function install() {
 	sudo ANSIBLE_ERROR_ON_UNDEFINED_VARS=True ansible-playbook -i myhosts -c local setup.yml --extra-vars="name=${1} arch=${2} range=${3} role=${4} sequence=${5}"
