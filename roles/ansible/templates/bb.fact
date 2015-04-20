@@ -1,0 +1,11 @@
+[hex]
+id={{hex.id}}
+name={{hex.name}}
+arch={{hex.arch}}
+
+[network]
+range={{hex.range}}
+
+[node]
+sequence={{node.sequence}}
+role={{node.type}}

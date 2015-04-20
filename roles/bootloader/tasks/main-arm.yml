@@ -1,0 +1,5 @@
+- name: be sure uboot is copied to the local filesystem
+  get_url: url={{arm.bootloader}} dest={{cacheDir}}/uboot.imx
+
+- name: be sure the bootloader is installed
+  shell: dd if={{cacheDir}}/uboot.imx of={{disk.dev}} bs=512 seek=2

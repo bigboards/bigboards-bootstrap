@@ -1,0 +1,5 @@
+- name: be sure the bootloader is copied to the local filesystem
+  get_url: url={{intel.bootloader}} dest={{cacheDir}}/bootloader.img
+
+- name: be sure the bootloader is installed
+  shell: dd if={{cacheDir}}/bootloader.imx of={{disk.dev}} bs=446 count=1

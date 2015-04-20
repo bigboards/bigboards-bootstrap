@@ -1,10 +1,6 @@
 ---
-- name: be sure the bootloader is copied to the local filesystem
-  get_url: url={{url.bootloader}} dest={{cacheDir}}/uboot.imx
-  tags:
-    - bootloader
+- include: main-arm.yml
+  when: hex.arch == 'arm'
 
-- name: be sure the bootloader is installed
-  shell: dd if={{cacheDir}}/uboot.imx of={{disk.dev}} bs=512 seek=2
-  tags:
-    - bootloader
+- include: main-intel.yml
+  when: hex.arch == 'intel'

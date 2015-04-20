@@ -11,17 +11,3 @@ host-workers
 {{hex.name}}-n4   ansible_ssh_user=bb
 {{hex.name}}-n5   ansible_ssh_user=bb
 {{hex.name}}-n6   ansible_ssh_user=bb
-
-[lxc:children]
-lxc-coordinators
-lxc-workers
-
-[lxc-coordinators]
-{{hex.name}}-v1   ansible_ssh_user=bb
-
-[lxc-workers]
-{{hex.name}}-v2   ansible_ssh_user=bb
-{{hex.name}}-v3   ansible_ssh_user=bb
-{{hex.name}}-v4   ansible_ssh_user=bb
-{{hex.name}}-v5   ansible_ssh_user=bb
-{{hex.name}}-v6   ansible_ssh_user=bb

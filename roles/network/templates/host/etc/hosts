@@ -1,8 +1,8 @@
 127.0.0.1 localhost
 
-172.20.40.1 {{ hex.name }}-n1
-172.20.40.2 {{ hex.name }}-n2
-172.20.40.3 {{ hex.name }}-n3
-172.20.40.4 {{ hex.name }}-n4
-172.20.40.5 {{ hex.name }}-n5
-172.20.40.6 {{ hex.name }}-n6
+{{ hex.range }}.1 {{ hex.name }}-n1
+{{ hex.range }}.2 {{ hex.name }}-n2
+{{ hex.range }}.3 {{ hex.name }}-n3
+{{ hex.range }}.4 {{ hex.name }}-n4
+{{ hex.range }}.5 {{ hex.name }}-n5
+{{ hex.range }}.6 {{ hex.name }}-n6

@@ -1,16 +1,15 @@
 ---
 # Variables applicable to all hosts
 hex:
-  name: 'infinite'
-  id: '1b57dc1f-c48f-468f-b7f9-8957f64a556c'
+  name: '{{name}}'
+  id: '{{name}}'
+  arch: 'arm'
+  range: '{{range}}'
 
 node:
   type: "{{ role }}"
   sequence: "{{ sequence|int }}"
-  host:
-    hostname: "{{ hex.name }}-n{{ sequence }}"
-  container:
-    hostname: "{{ hex.name }}-v{{ sequence }}"
+  hostname: "{{ hex.name }}-n{{ sequence }}"
 
 disk: 
   dev: '/dev/mmcblk0'
@@ -18,6 +17,9 @@ disk:
 
 cacheDir: '/tmp'
 
-url:
+intel:
+  bootloader: 'http://apt.bigboards.io/boot/mbr-20150420-x86_64.img'
+  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-20150420-nuc.tgz'
+arm:
   bootloader: 'http://apt.bigboards.io/boot/wand-uboot-quad.imx'
   rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-20140826-wand.tgz'

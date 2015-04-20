@@ -35,4 +35,4 @@ deb http://ports.ubuntu.com/ubuntu-ports/ trusty-security multiverse
 deb-src http://ports.ubuntu.com/ubuntu-ports/ trusty-security multiverse
 
 ## The BigBoards repository
-deb http://apt.bigboards.io/repo snapshots/
+deb http://apt.bigboards.io feniks main
