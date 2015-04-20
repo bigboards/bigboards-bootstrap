@@ -3,7 +3,7 @@
 hex:
   name: '{{name}}'
   id: '{{name}}'
-  arch: 'arm'
+  arch: '{{arch}}'
   range: '{{range}}'
 
 node:
