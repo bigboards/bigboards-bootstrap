@@ -11,7 +11,7 @@ SIZE=$2
 
 RANGE=`echo 10.$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1)`
 
-if [ "$ARCH" -ne "intel" ] && [ "$ARCH" -ne "arm" ]; 
+if [[ "$ARCH" != "intel" ]] && [[ "$ARCH" != "arm" ]]; 
 then 
 	echo "Hex architecture should be 'intel' or 'arm'" 
 	exit 1
