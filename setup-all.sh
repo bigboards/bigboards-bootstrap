@@ -7,7 +7,7 @@ set -e
 
 NAME=$1
 ARCH=$2
-SIZE=$2
+SIZE=$3
 
 RANGE=`echo 10.$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1)`
 
