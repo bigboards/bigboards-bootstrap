@@ -9,7 +9,7 @@ iface eth0 inet manual
     netmask 255.0.0.0
 
 auto eth0:0
-ifact eth0:0 inet dhcp
+iface eth0:0 inet dhcp
 
 {% endif %}
 
@@ -21,6 +21,6 @@ iface p2p1 inet manual
     netmask 255.0.0.0
 
 auto p2p1:0
-ifact p2p1:0 inet dhcp
+iface p2p1:0 inet dhcp
 
 {% endif %}
