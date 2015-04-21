@@ -4,7 +4,7 @@ iface lo inet loopback
 {% if hex.arch == 'arm' %}
 # physical network interface
 auto eth0
-iface eth0 inet manual
+iface eth0 inet static
     address {{hex.range}}.{{ node.sequence }}
     netmask 255.0.0.0
 
@@ -16,7 +16,7 @@ iface eth0:0 inet dhcp
 {% if hex.arch == 'intel' %}
 # physical network interface
 auto p2p1
-iface p2p1 inet manual
+iface p2p1 inet static
     address {{hex.range}}.{{ node.sequence }}
     netmask 255.0.0.0
 
