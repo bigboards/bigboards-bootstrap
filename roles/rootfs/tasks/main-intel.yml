@@ -8,6 +8,4 @@
   unarchive: copy=yes src={{cacheDir}}/rootfs-intel.tgz dest=/media/bbfs
 
 - name: be sure the grub configuration has been corrected
-  copy:
-  	src: 'grub.cfg'
-  	dest: '/media/bbfs/boot/grub.cfg'
+  copy: src='grub.cfg' dest='/media/bbfs/boot/grub.cfg'
