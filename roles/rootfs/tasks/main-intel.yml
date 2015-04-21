@@ -9,3 +9,6 @@
 
 - name: be sure the grub configuration has been corrected
   copy: src='grub.cfg' dest='/media/bbfs/boot/grub.cfg'
+
+- name: be sure the bootloader is installed
+  shell: grub-install --boot-directory /media/bbfs/boot {{disk.dev}}

@@ -1,2 +1,0 @@
-- name: be sure the bootloader is installed
-  shell: grub-install --boot-directory /media/bbfs/boot {{disk.dev}}
