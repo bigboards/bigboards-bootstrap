@@ -1,6 +1,3 @@
 ---
 - include: main-arm.yml
   when: hex.arch == 'arm'
-
-- include: main-intel.yml
-  when: hex.arch == 'intel'
