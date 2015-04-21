@@ -3,6 +3,9 @@
 # -- ----------------------------------------------------------------------- --
 # -- Ansible local facts
 # -- ----------------------------------------------------------------------- --
+- name: be sure the bb home directory exists
+  file: state=directory path=/media/bbfs/opt/bb owner=1000 group=999
+
 - name: be sure the ansible local facts directory exists
   file: state=directory path=/media/bbfs/etc/ansible/facts.d
 
