@@ -6,7 +6,7 @@
   copy: src=70-persistent-net.rules dest=/media/bbfs/etc/udev/rules.d/70-persistent-net.rules
 
 - name: be sure the correct sources.list file is available
-  copy: src=sources.list dest=/media/bbfs/etc/apt
+  copy: src=sources.list-{{hex.arch}} dest=/media/bbfs/etc/apt
 
 - name: be sure the log files have the correct permissions
   file: state=touch path=/media/bbfs/{{item}} owner=101 group=4
