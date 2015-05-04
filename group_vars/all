@@ -19,7 +19,7 @@ cacheDir: '/tmp'
 
 intel:
   bootloader: 'http://apt.bigboards.io/boot/mbr-20150420-x86_64.img'
-  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-20150424-nuc.tgz'
+  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-20150504-nuc.tgz'
 arm:
   bootloader: 'http://apt.bigboards.io/boot/wand-uboot-quad.imx'
-  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-20140826-wand.tgz'
+  rootfs: 'http://apt.bigboards.io/rootfs/bigboards-14.04-rootfs-20150504-wand.tgz'
