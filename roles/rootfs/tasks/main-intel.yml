@@ -11,4 +11,4 @@
   copy: src='grub.cfg' dest='/media/bbfs/boot/grub/grub.cfg'
 
 - name: be sure the bootloader is installed
-  shell: grub-install --boot-directory /media/bbfs/boot {{disk.dev}}
+  shell: grub-install --boot-directory /media/bbfs/boot --target i386-pc {{disk.dev}}
