@@ -8,8 +8,9 @@ iface eth0 inet static
     address {{hex.range}}.{{ node.sequence }}
     netmask 255.0.0.0
 
-auto eth0:0
-iface eth0:0 inet dhcp
+auto eth1
+iface eth1 inet dhcp
+	pre-up ip link add name eth1 link eth0 type macvlan
 
 {% endif %}
 
@@ -17,10 +18,11 @@ iface eth0:0 inet dhcp
 # physical network interface
 auto p2p1
 iface p2p1 inet static
-    address {{hex.range}}.{{ node.sequence }}
+    address {{ hex.range }}.{{ node.sequence }}
     netmask 255.0.0.0
 
-auto p2p1:0
-iface p2p1:0 inet dhcp
+auto p2p2
+iface p2p2 inet dhcp
+    pre-up ip link add name p2p2 link p2p1 type macvlan
 
 {% endif %}
