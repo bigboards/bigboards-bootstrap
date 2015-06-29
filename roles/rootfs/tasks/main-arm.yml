@@ -5,4 +5,5 @@
   get_url: url={{arm.rootfs}} dest={{cacheDir}}/rootfs-arm.tgz
 
 - name: be sure the rootfs is unpacked onto the right location
-  unarchive: copy=yes src={{cacheDir}}/rootfs-arm.tgz dest=/media/bbfs
+  shell: tar -xzf {{cacheDir}}/rootfs-arm.tgz -C /media/bbfs  
+#unarchive: copy=yes src={{cacheDir}}/rootfs-arm.tgz dest=/media/bbfs

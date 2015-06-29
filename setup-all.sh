@@ -1,35 +1,19 @@
 #!/bin/bash
 set -e
 
-[ -z $1 ] && echo "No hex name has been given!" && exit 1
+#[ -z $1 ] && echo "No hex name has been given!" && exit 1
+#[ -z $2 ] && echo "No hex architecture has been given!" && exit 1
 
-function updateResumeFile() {
-cat > "/tmp/__bb_$1.resume" <<EOF
-NAME=$NAME
-ARCH=$ARCH
-SIZE=$SIZE
-OFFSET=$1
-RANGE=$RANGE
-EOF
-}
+echo "Enter the name of the hex:"
+read NAME
 
+echo "Enter the hex architecture [arm or intel|:"
+read ARCH
 
-if [[ "$2" == "--resume" ]];
-then
-	echo "resuming ... $1"
-	source "/tmp/__bb_$1.resume"
-else 
-	[ -z $2 ] && echo "No hex architecture has been given!" && exit 1
-	[ -z $3 ] && echo "No hex size has been given!" && exit 1	
-
-	NAME=$1
-	ARCH=$2
-	SIZE=$3
-	OFFSET=1
-	RANGE=`echo 10.$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1)`
-
-	updateResumeFile 1
-fi
+RANGE=`echo 10.$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1)`
+echo "Enter the network range or press enter to use $RANGE:"
+read RANGE_ATTEMPT
+[ "${RANGE_ATTEMPT}" != "" ] && RANGE="${RANGE_ATTEMPT}"
 
 if [[ "$ARCH" != "intel" ]] && [[ "$ARCH" != "arm" ]]; 
 then 
@@ -39,21 +23,20 @@ fi
 
 function install() {
 	sudo ANSIBLE_ERROR_ON_UNDEFINED_VARS=True ansible-playbook -i myhosts -c local setup.yml --extra-vars="name=${1} arch=${2} range=${3} role=${4} sequence=${5}"
-
-	[[ $? -eq 0 ]] && updateResumeFile $5
 }
 
-echo "Installing hex $NAME with $SIZE nodes and ip range $RANGE"
+echo "Installing hex $NAME with ip range $RANGE"
 
-for i in $(seq $OFFSET $SIZE); 
-do 
-	read -p "Insert Storage for node $i and press ENTER."
 
-	if [ "$i" -eq "1" ]; 
+while true; do
+	echo "Insert Storage and enter the node sequence or [CTRL-C] to quit:"
+	read NODE_SEQUENCE
+
+	if [ "$NODE_SEQUENCE" -eq "1" ]; 
 	then
-		install $NAME $ARCH $RANGE master $i
+		install $NAME $ARCH $RANGE master $NODE_SEQUENCE
 	else 
-		install $NAME $ARCH $RANGE slave $i
+		install $NAME $ARCH $RANGE slave $NODE_SEQUENCE
 	fi
 done
 
