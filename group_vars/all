@@ -12,8 +12,8 @@ node:
   hostname: "{{ hex.name }}-n{{ sequence }}"
 
 disk: 
-  dev: '{{ "/dev/sdb" if (hex.arch == "arm") else "/dev/sdc" }}'
-  part: '{{ "/dev/sdb1" if (hex.arch == "arm") else "/dev/sdc1" }}'
+  dev: '{{ device }}'
+  part: '{{ device }}1'
 
 cacheDir: '/tmp'
 

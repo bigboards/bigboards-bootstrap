@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+function install() {
+	sudo ANSIBLE_ERROR_ON_UNDEFINED_VARS=True ansible-playbook -i myhosts -c local setup.yml --extra-vars="device=${1} name=${2} arch=${3} range=${4} role=${5} sequence=${6}"
+}
+
+[ ! -f "profiles/$1"  ] && echo "No profile with the name $1 has been found in the profiles directory" && exit 1
+
+. profiles/$1 && echo "Successfully sourced the profile for the hex named $1"
+
+[ -z $NAME ] && echo "No hex name has been given!" && exit 1
+[ -z $ARCH ] && echo "No hex architecture has been given!" && exit 1
+[ -z $RANGE ] && echo "No network range has been given!" && exit 1
+[[ "$ARCH" != "x86_64" ]] && [[ "$ARCH" != "armv7l" ]] && echo "Hex architecture should be 'x86_64' or 'armv7l'" && exit 1
+
+DEVICE=/dev/sdb
+[ ! -z $2 ] && DEVICE=$2
+
+echo
+echo "Preparing to install $NAME on device $DEVICE!"
+echo
+echo "  Architecture:       $ARCH"
+echo "  Network Range:      $RANGE"
+echo
+
+while true; do
+	echo "Insert Storage and enter the node sequence or [CTRL-C] to quit:"
+	read NODE_SEQUENCE
+
+	if [ "$NODE_SEQUENCE" -eq "1" ]; 
+	then
+		install $DEVICE $NAME $ARCH $RANGE master $NODE_SEQUENCE
+	else 
+		install $DEVICE $NAME $ARCH $RANGE slave $NODE_SEQUENCE
+	fi
+done
