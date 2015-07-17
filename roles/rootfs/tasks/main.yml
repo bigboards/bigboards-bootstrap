@@ -1,6 +1,6 @@
 ---
 - include: main-arm.yml
-  when: hex.arch == 'arm'
+  when: hex.arch == 'armv7l'
 
 - include: main-intel.yml
-  when: hex.arch == 'intel'
+  when: hex.arch == 'x86_64'

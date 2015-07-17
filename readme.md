@@ -1,0 +1,1 @@
+Before running the setup script, make sure to install grub-pc-bin since it is used to install the bootloader
