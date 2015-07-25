@@ -1,4 +1,20 @@
 ---
+- name: be sure the rootfs is empty
+  shell: rm -rf /media/bbfs/*
+
+- name: be sure the rootfs image is copied to the local filesystem
+  get_url: url={{intel.rootfs}} dest={{cacheDir}}/rootfs-intel.tgz
+
+- name: be sure the rootfs is unpacked onto the right location
+  shell: tar -xzf {{cacheDir}}/rootfs-intel.tgz -C /media/bbfs
+#  unarchive: copy=yes src={{cacheDir}}/rootfs-intel.tgz dest=/media/bbfs
+
+- name: be sure the grub configuration has been corrected
+  copy: src='grub.cfg' dest='/media/bbfs/boot/grub/grub.cfg'
+
+- name: be sure the bootloader is installed
+  shell: grub-install --boot-directory /media/bbfs/boot --target i386-pc {{disk.dev}}
+
 - name: be sure the new bash prompt is active
   lineinfile: dest=/media/bbfs/etc/bash.bashrc regexp='^PS1=' line="PS1=$'\u2b22 {{ hex.name }} \u@\h \w\$ '"
 

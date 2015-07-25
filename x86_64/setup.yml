@@ -1,0 +1,15 @@
+---
+- hosts: images
+  gather_facts: no
+  connection: local
+  vars_files:
+    - vars/environment.yml
+    - vars/hex.yml
+    - vars/node.yml
+  tasks:
+    - include: tasks/stage_0.yml
+    - include: tasks/stage_1.yml ansible_connection=chroot
+    - include: tasks/cleanup.yml
+
+
+

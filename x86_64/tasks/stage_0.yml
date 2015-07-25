@@ -1,0 +1,49 @@
+- name: create the directory structures
+  file: state=directory path={{cacheDir}}
+  with_items:
+    - "{{cacheDir}}"
+    - "/media/bbfs"
+
+- name: download the rootfs image
+  get_url: url={{rootfs}} dest={{cacheDir}}/rootfs.tar.gz force=no
+
+- name: decompress the rootfs image
+  shell: creates={{cacheDir}}/rootfs.tar gunzip -c {{cacheDir}}/rootfs.tar.gz > {{cacheDir}}/rootfs.tar
+
+- name: unmount all bound filesystems
+  shell: umount -l /media/bbfs{{ item }}
+  ignore_errors: yes
+  with_items:
+    - /sys
+    - /proc
+    - /dev
+
+- name: unmount all partitions
+  shell: umount -t ext4 {{disk.part}}
+  ignore_errors: yes
+
+- name: remove all existing partitions
+  shell: parted -s {{disk.dev}} mklabel msdos
+
+- name: apply the new layout to the disk
+  shell: parted {{disk.dev}} mkpart primary 0% 100%
+
+- name: format the newly created partitions
+  shell: mkfs.ext4 -L BBFS {{disk.part}}
+
+- name: mount the partitions
+  shell: mount -t ext4 {{disk.part}} /media/bbfs
+
+- name: remove all files from the rootfs
+  shell: rm -rf /media/bbfs/*
+
+- name: be sure the rootfs is unpacked onto the right location
+  shell: tar -xf {{cacheDir}}/rootfs.tar -C /media/bbfs
+
+- name: copy the grub configuration file
+  copy:
+    src: files/grub.cfg
+    dest: /media/bbfs/boot/grub/grub.cfg
+
+- name: install the bootloader
+  shell: grub-install --boot-directory /media/bbfs/boot --target i386-pc {{disk.dev}}

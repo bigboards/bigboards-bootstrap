@@ -1,0 +1,4 @@
+node:
+  type: "{{ role }}"
+  sequence: "{{ sequence }}"
+  hostname: "{{ hex.name }}-n{{ sequence }}"

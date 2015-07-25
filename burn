@@ -2,7 +2,7 @@
 set -e
 
 function install() {
-	sudo ANSIBLE_ERROR_ON_UNDEFINED_VARS=True ansible-playbook -i myhosts -c local setup.yml --extra-vars="device=${1} name=${2} arch=${3} range=${4} role=${5} sequence=${6}"
+	sudo ANSIBLE_ERROR_ON_UNDEFINED_VARS=True ansible-playbook -i myhosts -c local $3/setup.yml --extra-vars="device=${1} name=${2} arch=${3} range=${4} role=${5} sequence=${6}"
 }
 
 [ ! -f "profiles/$1"  ] && echo "No profile with the name $1 has been found in the profiles directory" && exit 1

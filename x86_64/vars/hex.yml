@@ -1,0 +1,5 @@
+hex:
+  name: '{{name}}'
+  id: '{{name}}'
+  arch: '{{arch}}'
+  range: '{{range}}'

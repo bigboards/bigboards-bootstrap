@@ -1,0 +1,10 @@
+---
+disk:
+  dev: '{{ device }}'
+  part: '{{ device }}1'
+
+cacheDir: '~/.bb/x86_64'
+
+bootloader: 'http://apt.bigboards.io/boot/mbr-20150420-x86_64.img'
+#rootfs: 'http://cdimage.ubuntu.com/ubuntu-core/releases/14.04.2/release/ubuntu-core-14.04.2-core-amd64.tar.gz'
+rootfs: 'http://apt.bigboards.io/rootfs/bigboards-core-14.04.2-core-amd64.tar.gz'
