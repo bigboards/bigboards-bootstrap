@@ -1,18 +1,22 @@
 #- name: install python using CLI to allow ansible to work
 #  command: apt-get install -y python
 
-#- name: install the software packages
-#  apt:
-#    name: "{{ item }}"
-#    state: "latest"
-#    update_cache: "yes"
-#  with_items:
+- name: install the software packages
+  apt:
+    name: "{{ item }}"
+    state: "latest"
+    update_cache: "yes"
+  with_items:
 #    - linux-headers-generic
 #    - linux-image-generic
 #    - rsyslog
 #    - avahi-daemon
 #    - avahi-utils
-#    - python
+    - python-pip
+
+- name: install the aws tools
+  pip:
+    name: 'awscli'
 
 - name: set the new bash prompt
   lineinfile: dest=/etc/bash.bashrc regexp='^PS1=' line="PS1=$'\u2b22 {{ hex.name }} \u@\h \w\$ '"
@@ -31,6 +35,9 @@
     - "etc/dhcp/dhclient.conf"
     - "etc/hosts"
     - "etc/avahi/avahi-daemon.conf"
+
+- name: make sure the nodes will register themselves with amazon dns
+  template: src=templates/etc/network/if-up.d/dns dest=/etc/network/if-up.d/dns owner=root group=root mode=755
 
 #- name: add the bb user to the sudoers
 #  lineinfile: dest=/etc/sudoers state=present regexp='^bb ALL\=' line='bb ALL=(ALL) NOPASSWD:ALL' validate='visudo -cf %s'
