@@ -16,7 +16,7 @@
 
 - name: install the aws tools
   pip:
-    name: 'awscli'
+    name: 'aws-cli'
 
 - name: set the new bash prompt
   lineinfile: dest=/etc/bash.bashrc regexp='^PS1=' line="PS1=$'\u2b22 {{ hex.name }} \u@\h \w\$ '"
