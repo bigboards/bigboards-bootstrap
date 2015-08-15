@@ -12,6 +12,7 @@
     - python-pip
 
 - name: make sure we have a correct date
+  ignore_errors: yes
   shell: ntpdate -s time.nist.gov
 
 - name: install the aws tools
