@@ -32,7 +32,7 @@
   get_url: url={{bootloader}} dest={{cacheDir}}/uboot.tar.xz
 
 - name: unpack the bootloader
-  shell: tar -xJf uboot.tar.xz -C {{cacheDir}}/uboot
+  shell: tar -xJf {{cacheDir}}/uboot.tar.xz -C {{cacheDir}}/uboot
 
 - name: be sure the bootloader is installed
   shell: dd if={{cacheDir}}/uboot/wand-uboot-quad.imx of={{disk.dev}} bs=512 seek=2
