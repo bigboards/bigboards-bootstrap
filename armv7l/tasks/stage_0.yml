@@ -53,6 +53,11 @@
 - name: be sure the rootfs is unpacked onto the right location
   shell: tar -pxJf {{cacheDir}}/rootfs.tar.xz -C /media/bbfs
 
+- name: remove the existing resolv.conf file from the rootfs
+  file:
+    path: '/media/bbfs/etc/resolv.conf'
+    state: absent
+
 - name: copy the local resolv.conf file to the chroot environment
   copy:
     src: '/etc/resolv.conf'
