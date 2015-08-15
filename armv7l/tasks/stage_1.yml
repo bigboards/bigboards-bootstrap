@@ -10,6 +10,7 @@
     - curl
     - ntp
     - python-pip
+    - avahi-daemon
 
 - name: make sure we have a correct date
   ignore_errors: yes
