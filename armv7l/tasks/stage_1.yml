@@ -1,6 +1,12 @@
 #- name: install python using CLI to allow ansible to work
 #  command: apt-get install -y python
 
+- name: change the user name
+  shell: usermod -l bb ubuntu
+
+- name: change the user home directory
+  shell: usermod -m -d /home/bb bb
+
 - name: install the software packages
   apt:
     name: "{{ item }}"
