@@ -1,13 +1,16 @@
 #- name: install python using CLI to allow ansible to work
 #  command: apt-get install -y python
 
-- name: install the software packages
-  apt:
-    name: "{{ item }}"
-    state: "latest"
-    update_cache: "yes"
-  with_items:
-    - python-pip
+#- name: install the software packages
+#  apt:
+#    name: "{{ item }}"
+#    state: "latest"
+#    update_cache: "yes"
+#  with_items:
+#    - python-pip
+
+- name: install pip
+  shell: curl --silent --show-error --retry 5 https://bootstrap.pypa.io/get-pip.py | sudo python2.7
 
 - name: install the aws tools
   pip:
