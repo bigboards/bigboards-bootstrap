@@ -1,14 +1,15 @@
 ---
-- hosts: all
-  roles:
-    - { role: hello }
-    - { role: unmount }
-    - { role: partition }
-    - { role: bootloader }
-    - { role: mount }
-    - { role: rootfs }
-    - { role: os }
-    - { role: network }
-    - { role: ansible }
-    - { role: unmount }
+- hosts: images
+  gather_facts: no
+  connection: local
+  vars_files:
+    - vars/environment.yml
+    - vars/hex.yml
+    - vars/node.yml
+  tasks:
+    - include: tasks/stage_0.yml
+    - include: tasks/stage_1.yml ansible_connection=chroot
+    - include: tasks/cleanup.yml
+
+
 

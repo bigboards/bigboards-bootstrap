@@ -1,0 +1,14 @@
+---
+- hosts: all
+  roles:
+    - { role: hello }
+    - { role: unmount }
+    - { role: partition }
+    - { role: bootloader }
+    - { role: mount }
+    - { role: rootfs }
+    - { role: os }
+    - { role: network }
+    - { role: ansible }
+    - { role: unmount }
+

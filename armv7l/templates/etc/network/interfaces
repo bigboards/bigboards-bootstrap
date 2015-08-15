@@ -1,0 +1,13 @@
+auto lo
+iface lo inet loopback
+
+# Internal network interface
+auto eth0
+iface eth0 inet static
+    address {{ hex.range }}.{{ node.sequence }}
+    netmask 255.0.0.0
+
+# External network interface
+auto eth1
+iface eth1 inet dhcp
+	pre-up ip link add name eth1 link eth0 type macvlan
