@@ -35,7 +35,7 @@
   shell: tar -xJf {{cacheDir}}/uboot.tar.xz -C {{cacheDir}}
 
 - name: be sure the bootloader is installed
-  shell: dd if={{cacheDir}}/uboot/wand-uboot-quad.imx of={{disk.dev}} bs=512 seek=2
+  shell: dd if={{cacheDir}}/wand-uboot/wand-uboot-quad.imx of={{disk.dev}} bs=512 seek=2
 
 - name: mount the partitions
   shell: mount -t ext4 {{disk.part}} /media/bbfs
