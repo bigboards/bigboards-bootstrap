@@ -10,7 +10,6 @@
     - curl
     - ntp
     - python-pip
-    - avahi-daemon
 
 - name: make sure we have a correct date
   ignore_errors: yes
@@ -36,10 +35,9 @@
     - "etc/network/interfaces"
     - "etc/dhcp/dhclient.conf"
     - "etc/hosts"
-    - "etc/avahi/avahi-daemon.conf"
 
 - name: make sure the nodes will register themselves with amazon dns
   template: src=templates/etc/network/if-up.d/dns dest=/etc/network/if-up.d/dns owner=root group=root mode=755
 
-#- name: add the bb user to the sudoers
-#  lineinfile: dest=/etc/sudoers state=present regexp='^bb ALL\=' line='bb ALL=(ALL) NOPASSWD:ALL' validate='visudo -cf %s'
+- name: add the bb user to the sudoers
+  lineinfile: dest=/etc/sudoers state=present regexp='^bb ALL\=' line='bb ALL=(ALL) NOPASSWD:ALL' validate='visudo -cf %s'
