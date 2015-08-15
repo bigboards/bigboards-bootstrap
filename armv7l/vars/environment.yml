@@ -1,10 +1,11 @@
 ---
 disk:
   dev: '{{ device }}'
-  part: '{{ device }}1'
+  part: '{{ device }}p1'
 
-cacheDir: '~/.bb/x86_64'
+cacheDir: '~/.bb/armv7l'
 
-bootloader: 'http://apt.bigboards.io/boot/mbr-20150420-x86_64.img'
+bootloader: 'http://s3.armhf.com/dist/wand/wand-uboot.tar.xz'
 #rootfs: 'http://cdimage.ubuntu.com/ubuntu-core/releases/14.04.2/release/ubuntu-core-14.04.2-core-amd64.tar.gz'
-rootfs: 'http://apt.bigboards.io/rootfs/bigboards-core-14.04.2-core-amd64.tar.gz'
+rootfs: 'http://s3.armhf.com/dist/wand/ubuntu-trusty-14.04-rootfs-3.10.17.1-wand-armhf.com.tar.xz'
+#rootfs: 'http://apt.bigboards.io/rootfs/bigboards-core-14.04.2-core-armv7l.tar.gz'
