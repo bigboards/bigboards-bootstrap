@@ -36,10 +36,10 @@
 
 - name: change permissions of the bootloader
   file:
-    recurse: yes
-    path: {{cacheDir}}/wand-uboot
-    owner: bb
-    mode: 755
+    recurse: 'yes'
+    path: '{{cacheDir}}/wand-uboot'
+    owner: 'bb'
+    mode: '755'
 
 - name: be sure the bootloader is installed
   shell: dd if={{cacheDir}}/wand-uboot/wand-uboot-quad.imx of={{disk.dev}} bs=512 seek=2
