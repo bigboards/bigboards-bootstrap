@@ -3,7 +3,7 @@ disk:
   dev: '{{ device }}'
   part: '{{ device }}p1'
 
-cacheDir: '~/.bb/armv7l'
+cacheDir: '/home/bb/.bb/armv7l'
 
 bootloader: 'http://s3.armhf.com/dist/wand/wand-uboot.tar.xz'
 #rootfs: 'http://cdimage.ubuntu.com/ubuntu-core/releases/14.04.2/release/ubuntu-core-14.04.2-core-amd64.tar.gz'
