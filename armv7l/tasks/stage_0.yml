@@ -62,3 +62,6 @@
   copy:
     src: '/etc/resolv.conf'
     dest: '/media/bbfs/etc/resolv.conf'
+
+#- name: chroot - bind mount all the filesystems we need
+#  shell: for f in /sys /proc /dev ; do mount --rbind $f /media/bbfs$f ; done

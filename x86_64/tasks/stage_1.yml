@@ -7,12 +7,12 @@
     state: "latest"
     update_cache: "yes"
   with_items:
-#    - linux-headers-generic
-#    - linux-image-generic
-#    - rsyslog
-#    - avahi-daemon
-#    - avahi-utils
     - python-pip
+    - nodejs
+    - nodejs-legacy
+    - npm
+    - node-colors
+    - vim
 
 - name: install the aws tools
   pip:

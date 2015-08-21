@@ -15,6 +15,11 @@
   with_items:
     - curl
     - ntp
+    - nodejs
+    - nodejs-legacy
+    - npm
+    - node-colors
+    - vim
 
 - name: make sure we have a correct date
   ignore_errors: yes
@@ -29,12 +34,6 @@
 
 - name: set the new bash prompt
   lineinfile: dest=/etc/bash.bashrc regexp='^PS1=' line="PS1=$'\u2b22 {{ hex.name }} \u@\h \w\$ '"
-
-#    - name: chroot - copy the resolv.conf so we have networking
-#      copy: src=/etc/resolv.conf dest=/media/bbfs/etc/resolv.conf
-
-#    - name: chroot - bind mount all the filesystems we need
-#      shell: for f in /sys /proc /dev ; do mount --rbind $f /media/bbfs$f ; done
 
 - name: configure the network
   template: src=templates/{{item}} dest=/{{item}} owner=root group=root
