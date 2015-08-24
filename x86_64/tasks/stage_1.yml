@@ -4,7 +4,7 @@
 - name: create the .ssh directory
   file:
     state: directory
-    path: '/media/bbfs//bb/.ssh'
+    path: '/media/bbfs/home/bb/.ssh'
     owner: bb
 
 - name: copy the ssh keys to the right directory
