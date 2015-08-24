@@ -10,13 +10,13 @@
 - name: create the .ssh directory
   file:
     state: directory
-    path: '/media/bbfs/home/bb/.ssh'
+    path: '/home/bb/.ssh'
     owner: bb
 
 - name: copy the ssh keys to the right directory
   copy:
     src: '../keys/{{hex.name}}/{{item}}'
-    dest: '/media/bbfs/home/bb/.ssh/{{item}}'
+    dest: '/home/bb/.ssh/{{item}}'
     owner: bb
   with_items:
     - 'id_rsa'
@@ -25,7 +25,7 @@
 - name: allow the bb user to login without a password
   copy:
     src: '../keys/{{hex.name}}/id_rsa.pub'
-    dest: '/media/bbfs/home/bb/.ssh/authorized_keys'
+    dest: '/home/bb/.ssh/authorized_keys'
     owner: bb
     mode: 600
 
