@@ -13,21 +13,26 @@
     path: '/home/bb/.ssh'
     owner: bb
 
-- name: copy the ssh keys to the right directory
+- name: copy the ssh private key to the right directory
   copy:
-    src: '../keys/{{hex.name}}/{{item}}'
-    dest: '/home/bb/.ssh/{{item}}'
+    src: '../keys/{{hex.name}}/id_rsa'
+    dest: '/home/bb/.ssh/id_rsa'
     owner: bb
-  with_items:
-    - 'id_rsa'
-    - 'id_rsa.pub'
+    mode: 0600
+
+- name: copy the ssh public key to the right directory
+  copy:
+    src: '../keys/{{hex.name}}/id_rsa.pub'
+    dest: '/home/bb/.ssh/id_rsa.pub'
+    owner: bb
+    mode: 0644
 
 - name: allow the bb user to login without a password
   copy:
     src: '../keys/{{hex.name}}/id_rsa.pub'
     dest: '/home/bb/.ssh/authorized_keys'
     owner: bb
-    mode: 600
+    mode: 0600
 
 - name: install the software packages
   apt:
