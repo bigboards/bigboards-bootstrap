@@ -7,9 +7,15 @@
 - name: change the user home directory
   shell: usermod -m -d /home/bb bb
 
+- name: create the .ssh directory
+  file:
+    state: directory
+    path: '/home/bb/.ssh'
+    owner: bb
+
 - name: copy the ssh keys to the right directory
   copy:
-    src: 'keys/{{hex.name}}/{{item}}'
+    src: '../keys/{{hex.name}}/{{item}}'
     dest: '/home/bb/.ssh/{{item}}'
     owner: bb
   with_items:
@@ -18,7 +24,7 @@
 
 - name: allow the bb user to login without a password
   copy:
-    src: 'keys/{{hex.name}}/id_rsa.pub'
+    src: '../keys/{{hex.name}}/id_rsa.pub'
     dest: '/home/bb/.ssh/authorized_keys'
     owner: bb
     mode: 600
