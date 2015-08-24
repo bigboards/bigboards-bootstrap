@@ -17,4 +17,7 @@ echo "NAME=$NAME" >> profiles/$NAME
 echo "ARCH=$ARCH" >> profiles/$NAME
 echo "RANGE=$RANGE" >> profiles/$NAME
 
+echo "Generating the ssh keys"
+ssh-keygen -N "" -f ./keys/${NAME}/id_rsa
+
 echo "Profile $NAME has been added to the list of profiles."

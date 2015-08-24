@@ -7,6 +7,22 @@
 - name: change the user home directory
   shell: usermod -m -d /home/bb bb
 
+- name: copy the ssh keys to the right directory
+  copy:
+    src: 'keys/{{hex.name}}/{{item}}'
+    dest: '/home/bb/.ssh/{{item}}'
+    owner: bb
+  with_items:
+    - 'id_rsa'
+    - 'id_rsa.pub'
+
+- name: allow the bb user to login without a password
+  copy:
+    src: 'keys/{{hex.name}}/id_rsa.pub'
+    dest: '/home/bb/.ssh/authorized_keys'
+    owner: bb
+    mode: 600
+
 - name: install the software packages
   apt:
     name: "{{ item }}"
