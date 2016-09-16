@@ -38,7 +38,7 @@
   file:
     recurse: 'yes'
     path: '{{cacheDir}}/wand-uboot'
-    owner: 'bb'
+    owner: '1000'
     mode: '755'
 
 - name: be sure the bootloader is installed

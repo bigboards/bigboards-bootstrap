@@ -3,3 +3,4 @@ hex:
   id: '{{name}}'
   arch: '{{arch}}'
   range: '{{range}}'
+  mask: '{{mask}}'

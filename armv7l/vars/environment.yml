@@ -1,7 +1,7 @@
 ---
 disk:
   dev: '{{ device }}'
-  part: '{{ device }}p1'
+  part: '{{ device }}1'
 
 cacheDir: '/home/bb/.bb/armv7l'
 

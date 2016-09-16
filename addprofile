@@ -7,15 +7,18 @@ read NAME
 echo "Enter the hex architecture [armv7l or x86_64|:"
 read ARCH
 
-RANGE=`echo 10.$(shuf -i 0-255 -n 1).$(shuf -i 0-255 -n 1)`
-echo "Enter the network range or press enter to use $RANGE:"
-read RANGE_ATTEMPT
-[ "${RANGE_ATTEMPT}" != "" ] && RANGE="${RANGE_ATTEMPT}"
+echo "Enter the hex sequence id:"
+read SEQ
+
+RANGE="172.17.$SEQ"
+MASK="255.255.255.0"
 
 touch profiles/$NAME
+echo "SEQ=$SEQ" >> profiles/$NAME
 echo "NAME=$NAME" >> profiles/$NAME
 echo "ARCH=$ARCH" >> profiles/$NAME
 echo "RANGE=$RANGE" >> profiles/$NAME
+echo "MASK=$MASK" >> profiles/$NAME
 
 echo "Generating the ssh keys"
 mkdir ./keys/${NAME}

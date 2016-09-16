@@ -26,7 +26,7 @@
   shell: parted -s {{disk.dev}} mklabel msdos
 
 - name: apply the new layout to the disk
-  shell: parted {{disk.dev}} mkpart primary 0% 100%
+  shell: parted {{disk.dev}} mkpart primary 8M 100%
 
 - name: format the newly created partitions
   shell: mkfs.ext4 -L BBFS {{disk.part}}
