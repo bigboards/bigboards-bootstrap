@@ -9,6 +9,7 @@
     - /sys
     - /proc
     - /dev
+    - /etc/resolv.conf
 
 - name: be sure the partitions are not mounted
   shell: umount -t ext4 {{disk.part}}

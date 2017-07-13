@@ -17,6 +17,7 @@
     - /sys
     - /proc
     - /dev
+    - /etc/resolv.conf
 
 - name: unmount all partitions
   shell: umount -t ext4 {{disk.part}}
@@ -39,6 +40,9 @@
 
 - name: be sure the rootfs is unpacked onto the right location
   shell: tar -xf {{cacheDir}}/rootfs.tar -C /media/bbfs
+
+- name: loop mount the /etc/resolv.conf file
+  shell: mount -o bind /etc/resolv.conf /media/bbfs/etc/resolv.conf
 
 - name: copy the grub configuration file
   copy:
